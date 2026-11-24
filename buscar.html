@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buscar · Nicolás Gicovate</title>
+<meta name="description" content="Cuentos, apuntes y fotografías de Nicolás Gicovate.">
+<link rel="canonical" href="https://ngicovate.github.io/gicovate/buscar.html">
+<link rel="icon" href="marca/icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="marca/icono-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nicolás Gicovate">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Nicolás Gicovate - Obras Completas">
+<meta property="og:description" content="Cuentos, apuntes y fotografías de Nicolás Gicovate.">
+<meta property="og:url" content="https://ngicovate.github.io/gicovate/buscar.html">
+<meta property="og:image" content="https://ngicovate.github.io/gicovate/marca/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nicolás Gicovate. Cuentos, cuaderno de apuntes, bien jugado, el arte de conectar con humanos.">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{var t=localStorage.getItem('tema');if(t)document.documentElement.setAttribute('data-tema',t)}catch(e){}</script>
+<link rel="stylesheet" href="estilo.css?v=ffd9535d">
+</head><body>
+<div class="limite">
+  <div class="filete">
+    <div class="arriba">
+      <a class="volver" href="index.html" aria-label="Volver al inicio">←</a>
+      <p class="nombre"><a href="index.html">Nicolás Gicovate</a></p>
+      <div class="pastilla" id="tema" role="group" aria-label="Tema">
+        <button type="button" data-tema="claro" aria-pressed="true">Light</button>
+        <button type="button" data-tema="oscuro" aria-pressed="false">Dark</button>
+      </div>
+    </div>
+    <div class="fila">
+      <nav class="menu">
+        <a href="juego.html">Juego</a>
+        <a href="cuaderno-de-apuntes.html">Apunto</a>
+        <a href="cuentos.html">Cuento</a>
+        <span class="aparte" aria-hidden="true">·</span>
+        <a class="otra" href="each.html">EACH</a>
+      </nav>
+      
+    </div>
+  </div>
+  <form class="buscador" id="forma" role="search">
+    <span class="campo">
+      <svg class="lupa" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m10.5 10.5 3.3 3.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input type="search" id="q" name="q" placeholder="Buscar" aria-label="Buscar una palabra" autocomplete="off" spellcheck="false">
+      <span class="rueda" aria-hidden="true"></span>
+    </span>
+    <button class="ir" type="submit" aria-label="Buscar"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m6 3.5 4.5 4.5L6 12.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </form>
+  <p class="pista" id="cuenta"></p>
+  <div class="azulejos" id="resultados"></div>
+  
+  <div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Apunte" hidden>
+    <div class="fondo" data-cerrar></div>
+    <button class="mover antes" id="antes" aria-label="Anterior">‹</button>
+    <div class="tarjeta"><div class="adentro" id="adentro"></div></div>
+    <button class="mover despues" id="despues" aria-label="Siguiente">›</button>
+    <button class="cerrar" id="cerrar" aria-label="Volver a los resultados" title="Volver a los resultados">×</button>
+    <!-- El pie de compartir no vive en el marco del visor sino adentro de la
+         pieza: se le pega al final del texto en cada apertura. Arriba, al lado
+         de la cruz, se le encimaba a la pastilla de claro y oscuro y además
+         quedaba del color del papel sobre un fondo claro, o sea invisible. -->
+    <div class="pie-compartir" id="pie-compartir">
+      <p class="aviso" id="aviso" role="status" hidden></p>
+      <!-- El menú del sistema no se puede ordenar desde una página: lo arma el
+           aparato, y en una Mac abre con la lista de lectura, AirDrop y Notas,
+           que no usa nadie. Así que la lista la pone la página. WhatsApp,
+           Gmail y X tienen cada uno su propia dirección para compartir, y
+           copiar es cosa del navegador. Instagram no tiene ninguna: no recibe
+           links desde una web, y su único camino sigue siendo el menú del
+           sistema. Por eso esa entrada aparece sólo donde ese menú existe, que
+           en la práctica es el teléfono, y va primera, que es donde la quiere
+           Nico. -->
+      <div class="menu-compartir" id="menu-compartir" hidden>
+        <button type="button" id="ir-sistema" hidden>Instagram y otras apps</button>
+        <a id="ir-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a id="ir-gmail" target="_blank" rel="noopener noreferrer">Gmail</a>
+        <button type="button" id="ir-copiar">Copiar el link</button>
+        <a id="ir-x" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <button class="compartir" id="compartir" aria-haspopup="true" aria-expanded="false"
+              aria-label="Compartir esta pieza" title="Compartir">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 15.5V3.5"/><path d="M8 7.3l4-3.8 4 3.8"/>
+          <path d="M5.2 12.4v6.2a1.9 1.9 0 0 0 1.9 1.9h9.8a1.9 1.9 0 0 0 1.9-1.9v-6.2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <script>
+  document.documentElement.classList.add('con-visor');
+  (function () {
+    var azulejos = [].slice.call(document.querySelectorAll('.azulejo'));
+    window.rearmarVisor = function () {
+      azulejos = [].slice.call(document.querySelectorAll('.azulejo'));
+      azulejos.forEach(function (a, n) {
+        if (a.dataset.listo) return;
+        a.dataset.listo = '1';
+        a.addEventListener('click', function () { abrir(n); });
+        a.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrir(n); }
+        });
+      });
+    };
+    var visor = document.getElementById('visor'), adentro = document.getElementById('adentro');
+    var i = 0, volverA = null;
+    var bCompartir = document.getElementById('compartir');
+    var pie = document.getElementById('pie-compartir');
+    var aviso = document.getElementById('aviso');
+    var menu = document.getElementById('menu-compartir');
+    var irSistema = document.getElementById('ir-sistema');
+    // En el teléfono el menú del sistema existe y es la única puerta a
+    // Instagram; en la computadora no existe, y la entrada no se muestra.
+    if (navigator.share) irSistema.hidden = false;
+    // El link de una pieza: la página donde vive, más su nombre detrás del
+    // numeral. Sin esto no hay nada que compartir: el visor no cambia de
+    // dirección y todas las piezas tendrían el mismo link, el de la sección.
+    function enlaceDe(n) {
+      var a = azulejos[n];
+      if (a.dataset.url) return new URL(a.dataset.url, location.href).href;
+      return a.id ? location.origin + location.pathname + '#' + a.id : '';
+    }
+    function pintar() {
+      adentro.innerHTML = azulejos[i].querySelector('.completo').innerHTML;
+      adentro.parentNode.scrollTop = 0;
+      document.getElementById('antes').disabled = i === 0;
+      document.getElementById('despues').disabled = i === azulejos.length - 1;
+      // innerHTML se lleva puestos los hijos, así que el pie se vuelve a
+      // enganchar en cada pintada.
+      aviso.hidden = true;
+      cerrarMenu();
+      pie.hidden = !enlaceDe(i);
+      if (!pie.hidden) adentro.appendChild(pie);
+      var n = azulejos[i].id;
+      if (n && history.replaceState) history.replaceState(null, '', '#' + n);
+    }
+    function abrir(n) {
+      i = n; volverA = azulejos[n]; pintar();
+      visor.hidden = false; document.body.style.overflow = 'hidden';
+      volar(azulejos[n]);
+      document.getElementById('cerrar').focus();
+    }
+    // La tarjeta no aparece en el centro: sale del azulejo que tocaste y
+    // viaja hasta el frente dando una vuelta. Para eso hay que medir las dos
+    // posiciones en el momento —dónde estaba el azulejo y dónde va a quedar
+    // la tarjeta— y dárselas al CSS, que es el que hace el viaje. Se mide
+    // después de mostrar el visor, porque mientras está oculto no tiene
+    // tamaño y todas las medidas darían cero.
+    // Seis maneras de llegar. Cada vez sale una al azar, pero nunca la misma
+    // dos veces seguidas: si se repitiera, la gracia se perdería justo cuando
+    // alguien abre varios apuntes uno atrás del otro.
+    var GIROS = [
+      'rotateY(-166deg) rotateX(10deg)',            // llega desde la izquierda
+      'rotateY(166deg) rotateX(10deg)',             // desde la derecha
+      'rotateZ(-184deg) rotateX(7deg)',             // voltereta contra el reloj
+      'rotateZ(184deg) rotateX(7deg)',              // voltereta a favor del reloj
+      'rotateZ(-150deg) rotateY(-58deg)',           // voltereta de costado
+      'rotateZ(132deg) rotateY(52deg) rotateX(12deg)'  // la más volada
+    ];
+    var ultimoGiro = -1;
+    function otroGiro() {
+      var n = Math.floor(Math.random() * GIROS.length);
+      if (n === ultimoGiro) n = (n + 1) % GIROS.length;
+      ultimoGiro = n;
+      return GIROS[n];
+    }
+    function volar(azulejo) {
+      var t = visor.querySelector('.tarjeta');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      t.style.animation = 'none';
+      var a = azulejo.getBoundingClientRect(), b = t.getBoundingClientRect();
+      if (!a.width || !b.width) { t.style.animation = ''; return; }
+      t.style.setProperty('--dx', Math.round((a.left + a.width / 2) - (b.left + b.width / 2)) + 'px');
+      t.style.setProperty('--dy', Math.round((a.top + a.height / 2) - (b.top + b.height / 2)) + 'px');
+      // En la lista de cuentos el azulejo es un renglón casi tan ancho como la
+      // tarjeta, así que sin techo el viaje no se notaría: arrancaría del
+      // mismo tamaño al que termina.
+      t.style.setProperty('--k', Math.min(0.72, Math.max(0.12, a.width / b.width)).toFixed(3));
+      t.style.setProperty('--giro', otroGiro());
+      void t.offsetWidth;          // obliga a recalcular, si no el navegador no reinicia la animación
+      t.style.animation = '';
+    }
+    function cerrar() {
+      visor.hidden = true; document.body.style.overflow = '';
+      aviso.hidden = true; cerrarMenu();
+      if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+      if (volverA) volverA.focus();
+    }
+    function avisar(t) {
+      aviso.textContent = t; aviso.hidden = false;
+      clearTimeout(aviso.plazo);
+      aviso.plazo = setTimeout(function () { aviso.hidden = true; }, 2200);
+    }
+    function tituloDe() {
+      var h2 = adentro.querySelector('h2');
+      return (h2 && h2.textContent.trim()) || document.title;
+    }
+    function cerrarMenu() {
+      if (menu.hidden) return;
+      menu.hidden = true;
+      bCompartir.setAttribute('aria-expanded', 'false');
+    }
+    function copiar(url) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(
+          function () { avisar('Link copiado'); },
+          function () { avisar(url); });
+      } else { avisar(url); }
+    }
+    bCompartir.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      var url = enlaceDe(i);
+      if (!url) return;
+      if (!menu.hidden) { cerrarMenu(); return; }
+      // Las direcciones se arman recién al abrir, porque la pieza puesta
+      // cambia con cada flecha del visor.
+      var t = tituloDe(), e = encodeURIComponent;
+      document.getElementById('ir-whatsapp').href = 'https://wa.me/?text=' + e(t + ' — ' + url);
+      document.getElementById('ir-gmail').href =
+        'https://mail.google.com/mail/?view=cm&fs=1&su=' + e(t) + '&body=' + e(url);
+      document.getElementById('ir-x').href =
+        'https://twitter.com/intent/tweet?text=' + e(t) + '&url=' + e(url);
+      menu.hidden = false;
+      bCompartir.setAttribute('aria-expanded', 'true');
+    });
+    // Un clic adentro del menú no tiene que cerrar el visor que hay detrás.
+    menu.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      if (ev.target.closest('a')) cerrarMenu();
+    });
+    irSistema.addEventListener('click', function () {
+      var url = enlaceDe(i);
+      cerrarMenu();
+      if (url) navigator.share({ title: tituloDe(), url: url }).catch(function () {});
+    });
+    document.getElementById('ir-copiar').addEventListener('click', function () {
+      var url = enlaceDe(i);
+      cerrarMenu();
+      if (url) copiar(url);
+    });
+    document.addEventListener('click', cerrarMenu);
+    azulejos.forEach(function (a, n) {
+      a.addEventListener('click', function () { abrir(n); });
+      a.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrir(n); }
+      });
+    });
+    function mover(paso) {
+      var n = i + paso;
+      while (n >= 0 && n < azulejos.length && azulejos[n].hidden) n += paso;
+      if (n >= 0 && n < azulejos.length) { i = n; pintar(); }
+    }
+    document.getElementById('antes').addEventListener('click', function () { mover(-1); });
+    document.getElementById('despues').addEventListener('click', function () { mover(1); });
+    document.getElementById('cerrar').addEventListener('click', cerrar);
+    visor.querySelector('[data-cerrar]').addEventListener('click', cerrar);
+    // Leer al azar: cada vez muestra una tanda de los que todavía no se vieron.
+    var POR_TANDA = 12, vistos = {}, azar = false;
+    var bOrden = document.getElementById('modo-orden'), bAzar = document.getElementById('modo-azar');
+    var pista = document.getElementById('pista');
+    var grilla = document.querySelector('.azulejos');
+    if (!bOrden) { bOrden = bAzar = { addEventListener: function () {}, setAttribute: function () {} }; pista = { textContent: '' }; }
+    // Pedir desorden tiene que verse, y verse fuerte: las tarjetas que están a
+    // la vista estallan hacia afuera, cada una en su dirección y girando, y las
+    // nuevas vuelven a juntarse desde los bordes hacia su lugar. Diverge y
+    // converge. Las direcciones salen de un sorteo, así que no hay dos tandas
+    // iguales, pero no son del todo al azar: cada tarjeta sale empujada desde
+    // el centro de la pantalla, como si algo hubiera reventado ahí.
+    var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function entre(a, b) { return a + Math.random() * (b - a); }
+    function estallar(a) {
+      var c = a.getBoundingClientRect();
+      var dx = (c.left + c.width / 2) - window.innerWidth / 2;
+      var dy = (c.top + c.height / 2) - window.innerHeight / 2;
+      var largo = Math.sqrt(dx * dx + dy * dy) || 1;
+      // Lo justo para que salga de pantalla por el lado que le toca, con una
+      // pizca de desvío para que no parezca una estrella dibujada con regla.
+      var fuerza = entre(0.85, 1.35) * (window.innerWidth + window.innerHeight) / 2.2;
+      a.style.setProperty('--x', (dx / largo * fuerza + entre(-60, 60)).toFixed(0) + 'px');
+      a.style.setProperty('--y', (dy / largo * fuerza + entre(-60, 60)).toFixed(0) + 'px');
+      a.style.setProperty('--giro', entre(-55, 55).toFixed(1) + 'deg');
+      a.style.setProperty('--escala', entre(0.35, 0.7).toFixed(2));
+    }
+    function juntar(a) {
+      // Las nuevas llegan desde afuera, de una dirección cualquiera, girando al
+      // revés de como salieron las otras: lo que estalló, se rearma.
+      var ang = Math.random() * Math.PI * 2, d = entre(180, 420);
+      a.style.setProperty('--x', (Math.cos(ang) * d).toFixed(0) + 'px');
+      a.style.setProperty('--y', (Math.sin(ang) * d).toFixed(0) + 'px');
+      a.style.setProperty('--giro', entre(-40, 40).toFixed(1) + 'deg');
+      a.style.setProperty('--escala', entre(0.5, 0.8).toFixed(2));
+    }
+    function alaVista(a) {
+      var c = a.getBoundingClientRect();
+      return c.bottom > 0 && c.top < window.innerHeight;
+    }
+    function limpiar(a) {
+      a.classList.remove('volando'); a.classList.remove('recien');
+      a.style.animationDelay = '';
+    }
+    // Las que están puestas ahora mismo. Se guardan para no tener que recorrer
+    // las cuatrocientas diecisiete en cada tanda: tocarlas a todas obligaba al
+    // navegador a recalcular el estilo de cada una, y eso tardaba casi medio
+    // segundo con la página en blanco en el medio. Null quiere decir que están
+    // todas, que es como queda el modo en orden.
+    var puestos = null;
+    function repartir(elegidos) {
+      (puestos || azulejos).forEach(function (a) { a.hidden = true; limpiar(a); });
+      // Leer una medida obliga al navegador a aplicar el ocultamiento antes de
+      // volver a mostrar. Sin esto la animación de reparto no arranca de cero
+      // en las tarjetas que ya estaban puestas.
+      void grilla.offsetHeight;
+      puestos = elegidos.map(function (n) { return azulejos[n]; });
+      puestos.forEach(function (a, orden) {
+        a.hidden = false;
+        if (quieto) return;
+        juntar(a);
+        a.style.animationDelay = (orden * 0.035).toFixed(3) + 's';
+        a.classList.add('recien');
+      });
+    }
+    function tanda() {
+      var quedan = azulejos.filter(function (a, n) { return !vistos[n]; });
+      if (!quedan.length) { vistos = {}; quedan = azulejos.slice(); }
+      var elegidos = [];
+      var pozo = azulejos.map(function (a, n) { return n; }).filter(function (n) { return !vistos[n]; });
+      while (elegidos.length < POR_TANDA && pozo.length) {
+        var k = Math.floor(Math.random() * pozo.length);
+        elegidos.push(pozo[k]); vistos[pozo[k]] = true; pozo.splice(k, 1);
+      }
+      var leidos = Object.keys(vistos).length;
+      pista.textContent = leidos + ' de ' + azulejos.length + ' · clickeá desorden otra vez para ver otras notas. ¡Desordená a gusto!';
+      // Sólo revolea lo que se está viendo: la primera vez hay cuatrocientas
+      // tarjetas puestas, y animarlas todas trabaría la página para nada,
+      // porque el que mira no las tiene delante.
+      var vuelan = quieto ? [] : azulejos.filter(function (a) { return !a.hidden && alaVista(a); }).slice(0, 24);
+      if (!vuelan.length) { repartir(elegidos); return; }
+      // Las de más al centro salen primero, que es como se propaga una onda.
+      vuelan.forEach(function (a, n) {
+        estallar(a);
+        a.style.animationDelay = (Math.min(n, 10) * 0.012).toFixed(3) + 's';
+        a.classList.add('volando');
+      });
+      // El reparto entra con las que salen todavía en el aire: el solape es lo
+      // que hace que se lea como una sola cosa —estalla y se rearma— y no como
+      // dos movimientos pegados con la página vacía en el medio.
+      setTimeout(function () { repartir(elegidos); }, 260);
+    }
+    bAzar.addEventListener('click', function () {
+      azar = true;
+      bAzar.setAttribute('aria-pressed', 'true'); bOrden.setAttribute('aria-pressed', 'false');
+      tanda();
+    });
+    bOrden.addEventListener('click', function () {
+      azar = false; vistos = {}; puestos = null;
+      bOrden.setAttribute('aria-pressed', 'true'); bAzar.setAttribute('aria-pressed', 'false');
+      pista.textContent = '';
+      azulejos.forEach(function (a) { a.hidden = false; limpiar(a); });
+    });
+
+    // Quien llega desde un link compartido entra directo a la pieza.
+    (function () {
+      var n = decodeURIComponent((location.hash || '').slice(1));
+      if (!n) return;
+      var k = azulejos.findIndex(function (a) { return a.id === n; });
+      if (k >= 0) setTimeout(function () { abrir(k); }, 60);
+    })();
+
+    document.addEventListener('keydown', function (ev) {
+      if (visor.hidden) return;
+      // Con el menú de compartir abierto, Escape lo cierra a él: cerrar el
+      // visor entero sería pasarse de largo.
+      if (ev.key === 'Escape') { if (menu.hidden) cerrar(); else cerrarMenu(); }
+      if (ev.key === 'ArrowLeft') mover(-1);
+      if (ev.key === 'ArrowRight') mover(1);
+    });
+  })();
+  </script>
+  <script>
+  (function () {
+    var caja = document.getElementById('resultados'), cuenta = document.getElementById('cuenta');
+    var entrada = document.getElementById('q'), datos = null;
+    function limpiarTexto(t) {
+      return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    }
+    function escapar(t) {
+      return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function resaltar(t, q) {
+      var i = limpiarTexto(t).indexOf(q);
+      if (i < 0) return escapar(t.slice(0, 240));
+      var desde = Math.max(0, i - 80);
+      return (desde ? '…' : '') + escapar(t.slice(desde, i)) +
+             '<mark>' + escapar(t.slice(i, i + q.length)) + '</mark>' +
+             escapar(t.slice(i + q.length, i + q.length + 140)) + '…';
+    }
+    function buscar(q) {
+      q = limpiarTexto(q.trim());
+      if (!q || !datos) { caja.innerHTML = ''; cuenta.textContent = ''; return; }
+      var hallados = datos.filter(function (e) {
+        // e.k son las palabras escondidas: se buscan pero no se muestran.
+        return limpiarTexto([e.t, e.a, e.p.join(' '), e.k || ''].join(' ')).indexOf(q) >= 0;
+      });
+      cuenta.textContent = hallados.length
+        ? hallados.length + (hallados.length === 1 ? ' resultado' : ' resultados')
+        : 'Nada con esa palabra';
+      caja.innerHTML = hallados.map(function (e, n) {
+        // Si lo que coincidió fue una palabra escondida, no hay nada que
+        // resaltar: se muestra el principio del posteo, que es lo útil.
+        var texto = [e.t, e.a, e.p.join(' ')].find(function (x) { return limpiarTexto(x || '').indexOf(q) >= 0; })
+                 || e.p[0] || e.t || '';
+        var foto = e.f[0] ? '<img class="miniatura" src="fotos/' + e.f[0] + '.jpg" alt="" loading="lazy">'
+                 : e.i[0] ? '<img class="miniatura" src="imagenes/' + e.i[0] + '" alt="" loading="lazy">' : '';
+        var completo = (e.v ? '<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/' + e.v +
+            '" title="' + escapar(e.t || 'Video') + '" loading="lazy" allowfullscreen ' +
+            'allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe></div>' : '') +
+          (e.f.map(function (f) { return '<figure><img src="fotos/' + f + '.jpg" alt="" loading="lazy"></figure>'; }).join('')) +
+          (e.i.map(function (f) { return '<figure><img src="imagenes/' + f + '" alt="" loading="lazy"></figure>'; }).join('')) +
+          (e.t ? '<h2>' + escapar(e.t) + '</h2>' : '') +
+          (e.a ? '<p class="autor">Por <b>' + escapar(e.a) + '</b></p>' : '') +
+          e.p.map(function (x) { return '<p>' + escapar(x) + '</p>'; }).join('');
+        return '<article class="azulejo" data-i="' + n + '"' +
+          (e.u ? ' data-url="' + e.u + '"' : '') + ' tabindex="0" role="button">' +
+          '<div class="tapa">' + (e.d ? '<p class="fecha">' + e.d + ' · ' + e.s + '</p>' : '<p class="fecha">' + e.s + '</p>') +
+          foto + (e.t ? '<h2>' + escapar(e.t) + '</h2>' : '') +
+          '<p class="resumen">' + resaltar(texto, q) + '</p></div>' +
+          '<div class="completo">' + completo + '</div></article>';
+      }).join('');
+      if (window.rearmarVisor) window.rearmarVisor();
+    }
+    // Con el número de versión: si no, al cambiar un posteo el navegador
+    // sigue usando el índice viejo que tiene guardado y el buscador muestra
+    // lo de antes, aunque la página ya esté al día.
+    fetch('indice.json?v=8144146d').then(function (r) { return r.json(); }).then(function (d) {
+      datos = d;
+      var q = new URLSearchParams(location.search).get('q');
+      // El valor llega acá, dentro de la respuesta, o sea después de que el
+      // guión compartido ya decidió si mostraba la rueda de palabras. Sin
+      // avisarle, la rueda sigue girando encima de lo que el campo ya dice y
+      // se leen las dos cosas superpuestas.
+      if (q) { entrada.value = q; entrada.dispatchEvent(new Event('input')); buscar(q); }
+    });
+    document.getElementById('forma').addEventListener('submit', function (ev) {
+      ev.preventDefault(); buscar(entrada.value);
+    });
+  })();
+  </script></div>
+<script defer src="sitio.js?v=161ed4d4"></script>
+</body></html>

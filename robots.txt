@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /revisar-fotos.html
+Disallow: /revisar-imagenes.html
+
+Sitemap: https://ngicovate.github.io/gicovate/sitemap.xml

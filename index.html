@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nicolás Gicovate</title>
+<meta name="description" content="Cuentos, apuntes y fotografías de Nicolás Gicovate.">
+<link rel="canonical" href="https://ngicovate.github.io/gicovate/">
+<link rel="icon" href="marca/icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="marca/icono-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nicolás Gicovate">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Nicolás Gicovate - Obras Completas">
+<meta property="og:description" content="Cuentos, apuntes y fotografías de Nicolás Gicovate.">
+<meta property="og:url" content="https://ngicovate.github.io/gicovate/">
+<meta property="og:image" content="https://ngicovate.github.io/gicovate/marca/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nicolás Gicovate. Cuentos, cuaderno de apuntes, bien jugado, el arte de conectar con humanos.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* La carátula. Manda el workshop: su tarjeta se apoya sobre la foto y se sale
+   del cuadro por la derecha. Abajo, tres tarjetas que leídas de izquierda a
+   derecha dicen una frase —juego, apunto, cuento—, que es el orden en que se
+   hace cualquier cosa: jugás con algo, lo anotás, lo contás.
+   Las fotos entran enteras, nunca recortadas. */
+@font-face{font-family:"Geist Serif";src:url("fuentes/GeistSerif-Regular.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Geist";src:url("fuentes/Geist-Variable.woff2") format("woff2");
+  font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Geist";src:url("fuentes/Geist-LightItalic.woff2") format("woff2");
+  font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Geist Mono";src:url("fuentes/GeistMono-Regular.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --papel:#F8F8F5; --tinta:#13120F; --gris:#78736A; --linea:#D8D7D1;
+  --papel-hondo:#EDEDE9; --acento:#C8102E; --marcado:#E2E1DA; --gris-claro:#99948A;
+  /* Tres voces: la serif nombra, la sans se lee, la mono rotula. */
+  --letra:"Geist",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --titulo:"Geist Serif",Georgia,"Times New Roman",serif;
+  --ficha:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --tam:1.02; --peso:300; --peso-nombre:400;
+  color-scheme:light;
+}
+/* Claro y oscuro. El papel no se vuelve negro puro: se vuelve una tinta
+   cálida, para que siga pareciendo papel. Sin elección guardada manda el
+   sistema; el botón guarda la decisión y desde ahí manda ella. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema="claro"]){
+    --papel:#14130F; --tinta:#EDEBE4; --gris:#908C83; --linea:#33312B;
+    --papel-hondo:#1D1C17; --acento:#E8705C; --marcado:#2B2924; --gris-claro:#716D65;
+    color-scheme:dark;
+  }
+}
+:root[data-tema="oscuro"]{
+  --papel:#14130F; --tinta:#EDEBE4; --gris:#908C83; --linea:#33312B;
+  --papel-hondo:#1D1C17; --acento:#E8705C; --marcado:#2B2924; --gris-claro:#716D65;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='.035'/%3E%3C/svg%3E")}
+.limite{position:relative;z-index:2}
+body{margin:0;background-color:var(--papel);
+  background-image:radial-gradient(ellipse 70% 50% at 12% 8%, rgba(92,92,86,.05), transparent 60%),
+                   radial-gradient(ellipse 60% 45% at 88% 78%, rgba(92,92,86,.04), transparent 55%);
+  background-attachment:fixed;color:var(--tinta);
+  font-family:var(--letra);font-weight:var(--peso);line-height:1.6}
+.limite{max-width:70rem;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+.filete{border-bottom:1px solid var(--tinta);display:flex;align-items:baseline;
+  justify-content:space-between;gap:1rem;padding:1.1rem 0 .6rem;flex-wrap:wrap}
+.nombre{font-family:var(--titulo);font-weight:var(--peso-nombre);font-size:calc(1.5rem * var(--tam));
+  line-height:1;margin:0;letter-spacing:-.01em}
+/* Los dos controles van juntos y despegados del buscador: son una cosa
+   aparte, y pegados al campo parecían parte de él. */
+.cabecera-der{display:flex;align-items:center;gap:.4rem}
+.cabecera-der .buscar{margin-right:1.3rem}
+.buscar{display:flex;align-items:center;gap:.5rem}
+.campo{display:flex;align-items:center}
+.lupa{width:14px;height:14px;flex:none;color:var(--gris);position:absolute;left:0;top:50%;
+  transform:translateY(-50%);pointer-events:none}
+/* Va con .buscar adelante a propósito: más abajo hay un .buscar input que
+   pone el relleno en cero y, con la misma especificidad, ganaba el de abajo.
+   El texto arrancaba encima de la lupa. */
+.buscar .campo input{padding-left:1.35rem}
+.buscar .rueda{left:1.35rem}
+.ir{flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:1.55rem;height:1.55rem;border:1px solid var(--linea);border-radius:999px;
+  background:none;color:var(--gris);cursor:pointer;padding:0;
+  transition:border-color .15s,color .15s}
+.ir svg{width:12px;height:12px}
+.ir:hover,.ir:focus-visible{border-color:var(--tinta);color:var(--tinta)}
+.buscar input{background:none;border:none;border-bottom:1px solid var(--linea);
+  font-family:var(--letra);font-weight:var(--peso);font-size:.84rem;color:var(--tinta);
+  padding:.25rem 0;width:11rem;max-width:40vw}
+.buscar input::placeholder{color:var(--gris)}
+.buscar input:focus{outline:none;border-bottom-color:var(--tinta)}
+.idioma{background:none;border:1px solid var(--linea);color:var(--gris);
+  font-family:var(--ficha);font-weight:400;font-size:.68rem;line-height:1;letter-spacing:.16em;
+  text-transform:uppercase;padding:.45rem .6rem;cursor:pointer}
+.idioma:hover{border-color:var(--tinta);color:var(--tinta)}
+/* La palabra que pasa por el buscador va en un span encima del campo, no en
+   el placeholder, que no se puede animar. */
+.campo{position:relative;display:block}
+.rueda{position:absolute;top:0;right:0;bottom:0;display:flex;align-items:center;overflow:hidden;
+  pointer-events:none;color:var(--gris);transition:opacity .2s ease;font-size:.84rem}
+.rueda span{position:absolute;white-space:nowrap;left:0}
+.campo:focus-within .rueda,.campo.escrito .rueda{opacity:0}
+.campo:not(:has(input:placeholder-shown)) .rueda{opacity:0}
+.buscar input.con-rueda::placeholder{color:transparent}
+.buscar input.con-rueda:focus::placeholder{color:var(--gris)}
+/* La que sale se va antes de que entre la siguiente. Si se cruzan a mitad de
+   camino se leen las dos encimadas y parece un error. */
+.rueda .sale{animation:rueda-sale .26s ease-in forwards}
+.rueda .entra{animation:rueda-entra .3s .2s ease-out backwards}
+@keyframes rueda-sale{to{opacity:0;transform:translateY(-.6em)}}
+@keyframes rueda-entra{from{opacity:0;transform:translateY(.6em)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rueda .sale,.rueda .entra{animation:none}}
+
+/* Las pastillas de dos segmentos: se ven las dos opciones y la puesta queda
+   marcada. Son lo único redondo del sitio, porque son controles y no
+   contenido. */
+.pastilla{display:inline-flex;align-items:center;border:1px solid var(--linea);
+  border-radius:999px;padding:2px;background:var(--papel)}
+.pastilla button{border:none;background:none;border-radius:999px;cursor:pointer;
+  font-family:var(--ficha);font-weight:400;font-size:.55rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gris);line-height:1;padding:.3rem .5rem;
+  display:inline-flex;align-items:center;transition:background .15s,color .15s}
+.pastilla button:hover{color:var(--tinta)}
+/* El segmento puesto se marca con un gris apenas más hondo que el papel, no
+   con tinta llena: relleno de negro era la mancha más oscura de la página, y
+   un interruptor no debería pesar más que una foto. */
+.pastilla button[aria-pressed="true"]{background:var(--marcado);color:var(--tinta)}
+
+/* Las camisetas no se rellenan de tinta como el texto: se apagan. La que no
+   está puesta queda gris y a media luz, así el color lo pone solo el idioma
+   en el que estás. */
+.banderas button{padding:.2rem .34rem}
+.banderas button svg{width:13px;height:13px}
+.banderas button svg{display:block;transition:opacity .18s,filter .18s}
+.banderas button[aria-pressed="true"]{background:var(--marcado)}
+.banderas button[aria-pressed="false"] svg{opacity:.4;filter:grayscale(1)}
+.banderas button:hover svg{opacity:1;filter:none}
+/* Globito propio en lugar del title del navegador, que tarda casi un segundo
+   en aparecer y no hay manera de apurarlo. Lo usa cualquier botón que traiga
+   un data-nombre: las dos banderas y el de ver las fotos solas. */
+[data-nombre]{position:relative}
+[data-nombre]::after{content:attr(data-nombre);position:absolute;top:calc(100% + .45rem);
+  left:50%;transform:translateX(-50%);background:var(--tinta);color:var(--papel);
+  font-family:var(--ficha);font-weight:400;font-size:.56rem;letter-spacing:.14em;
+  text-transform:uppercase;padding:.3rem .5rem;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .14s;z-index:2}
+[data-nombre]:hover::after,[data-nombre]:focus-visible::after{opacity:1}
+/* Los de la fila de mandos lo abren para arriba: viendo las fotos solas esa
+   fila queda casi al borde de abajo y el globito se saldría de la pantalla. */
+.mandos [data-nombre]::after{top:auto;bottom:calc(100% + .45rem)}
+
+:root[data-lang="en"] .es{display:none}
+:root:not([data-lang="en"]) .en{display:none}
+
+/* La foto, grande y pegada a la izquierda, sin llegar al ancho de las tres
+   tarjetas de abajo: el aire que queda a la derecha es donde la tarjeta del
+   workshop se sale del cuadro. La asimetría es a propósito. */
+.escena{position:relative;padding-block:2rem 3.6rem}
+.cuadro{position:relative;width:78%}
+.secuencia{position:relative;width:100%;aspect-ratio:3/2;max-height:60vh;overflow:hidden}
+.secuencia img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  opacity:0;transition:opacity 1.6s ease-in-out}
+.secuencia img.visible{opacity:1}
+
+/* Debajo de la foto, los mandos: parar, saltar de a una y la radio. Van en las
+   mismas pastillas que el claro y el oscuro, porque son controles y no
+   contenido. Van centrados contra la página entera y no contra el cuadro:
+   la foto entra sin recortarse, así que cuando es angosta o está parada no
+   llega a los bordes del cuadro, y los botones pegados al margen izquierdo
+   quedaban lejos de la foto, colgando solos. En el medio funcionan con
+   cualquier foto. */
+.cuadro{display:flex;flex-direction:column}
+/* Todo se apoya abajo, en la misma línea, y no centrado: la vitrola es más
+   alta que las pastillas, y centrada parecía colgada. Apoyada, la bocina le
+   sale por arriba y el resto queda sobre el mismo piso. */
+.mandos{display:flex;align-items:flex-end;justify-content:center;gap:.7rem;
+  flex-wrap:wrap;margin-top:3.2rem}
+/* Los dos rótulos sueltos se despegan del piso lo justo para que su renglón
+   quede a la altura del que está escrito adentro del mueble de la vitrola,
+   que es contra lo que el ojo los compara. Pegados abajo se leían hundidos. */
+.cuenta,.emisora{padding-bottom:.44rem}
+/* Los botones de las fotos no llevan texto sino el símbolo dibujado, así que
+   el relleno se les ajusta a mano. */
+.mandos .pastilla button svg{width:.72rem;height:.72rem;display:block}
+.mandos .pastilla button:has(svg){padding:.26rem .42rem}
+/* Este no se rellena al apretarlo, como hacen los segmentos de las otras
+   pastillas: ahí el relleno marca cuál de las dos opciones está puesta, y acá
+   no hay dos opciones sino un botón que cambia de dibujo. El dibujo ya dice
+   todo lo que hay que decir. */
+#foto-pausa[aria-pressed="true"]{background:none;color:var(--gris)}
+#foto-pausa[aria-pressed="true"]:hover{color:var(--tinta)}
+#foto-pausa .ic-sigue{display:none}
+#foto-pausa[aria-pressed="true"] .ic-pausa{display:none}
+#foto-pausa[aria-pressed="true"] .ic-sigue{display:block}
+
+/* Ver las fotos solas. El cuadro se tira al frente y tapa la página entera,
+   pero no va a pantalla completa del sistema a propósito: las fotos
+   publicadas miden 1100 píxeles de lado largo, y estiradas a un monitor
+   grande se empastan. Así que crecen hasta ahí y ni un píxel más, centradas
+   sobre el papel. La tarjeta del workshop se va: lo que queda es la foto, los
+   mandos y la música. */
+body.solas{overflow:hidden}
+body.solas .escena{position:fixed;inset:0;z-index:40;margin:0;background:var(--papel);
+  padding:max(1rem,env(safe-area-inset-top,0px)) max(1rem,env(safe-area-inset-right,0px))
+          max(1rem,env(safe-area-inset-bottom,0px)) max(1rem,env(safe-area-inset-left,0px));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.3rem}
+body.solas .cuadro{width:auto;max-width:100%}
+/* El ancho sale del menor de tres topes: el de la foto, el de la ventana a lo
+   ancho, y el que hace que la altura entre sin empujar los mandos afuera. */
+body.solas .secuencia{max-height:none;
+  width:min(1100px, calc(100vw - 3rem), calc((100vh - 8rem) * 1.5))}
+body.solas .tarjeta{display:none}
+body.solas .mandos{margin-top:0}
+/* La vitrola no entra en una pastilla: es más alta que los otros controles y
+   se apoya sobre la línea como un mueble. La bocina sale por arriba, apoyada
+   sobre la tapa del mueble, que es la cajita donde vive todo lo de la música:
+   el nombre que la prende, el botón de parar y el volumen. */
+.vitrola{display:inline-flex;flex-direction:column;align-items:flex-start;
+  color:var(--gris)}
+.vitrola .bocina{width:2.9rem;height:2.07rem;display:block;margin-left:.62rem;margin-bottom:-2px}
+.vitrola .caja{position:relative;display:inline-flex;align-items:center;gap:.5rem;
+  border:1.4px solid currentColor;padding:.26rem .5rem;transition:background .15s}
+/* La tapa del mueble, que sobresale de los dos lados. */
+.vitrola .caja::before{content:"";position:absolute;left:-3px;right:-3px;top:-4.4px;
+  border-top:1.4px solid currentColor}
+/* Sonando, el mueble se llena, igual que el segmento puesto de una pastilla. */
+.vitrola:has(#radio[aria-pressed="true"]){color:var(--tinta)}
+.vitrola .caja:has(#radio[aria-pressed="true"]){background:var(--marcado)}
+/* Todo lo de adentro es texto o dibujo sobre el mueble: sin fondo ni filo
+   propio, para que la caja siga leyéndose como una sola cosa. */
+.vitrola .caja button{background:none;border:none;padding:0;cursor:pointer;
+  color:inherit;line-height:1;display:inline-flex;align-items:center;
+  transition:opacity .15s}
+.vitrola .caja button:hover,.vitrola .caja button:focus-visible{opacity:.62;outline:none}
+.vitrola .prender{font-family:var(--ficha);font-weight:400;font-size:.55rem;
+  letter-spacing:.1em;text-transform:uppercase}
+.vitrola .caja button svg{width:.78rem;height:.78rem;display:block}
+#mus-pausa[hidden],.vol[hidden]{display:none}
+#mus-pausa .ic-sigue{display:none}
+#mus-pausa[aria-pressed="true"] .ic-pausa{display:none}
+#mus-pausa[aria-pressed="true"] .ic-sigue{display:block}
+
+/* El volumen, como en un reproductor de video: se aprieta el parlante y sale
+   una barrita al costado para correrla. Cerrada no ocupa lugar, así que la
+   caja no se mueve cuando no la estás usando. En una computadora alcanza con
+   pasarle el mouse por encima; en un teléfono, con tocar el parlante. */
+.vol{display:inline-flex;align-items:center;gap:.3rem}
+.vol .muda{display:none}
+.vol.sin-sonido .ondas{display:none}
+.vol.sin-sonido .muda{display:block}
+.vol input[type=range]{-webkit-appearance:none;appearance:none;background:none;
+  width:0;opacity:0;height:.8rem;margin:0;cursor:pointer;
+  transition:width .2s ease,opacity .2s ease}
+.vol:hover input[type=range],.vol:focus-within input[type=range],
+.vol.abierta input[type=range]{width:2.8rem;opacity:1}
+.vol input[type=range]::-webkit-slider-runnable-track{height:2px;background:currentColor;opacity:.4}
+.vol input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:7px;height:7px;
+  border-radius:50%;background:currentColor;margin-top:-2.5px}
+.vol input[type=range]::-moz-range-track{height:2px;background:currentColor;opacity:.4}
+.vol input[type=range]::-moz-range-thumb{width:7px;height:7px;border:none;border-radius:50%;
+  background:currentColor}
+@media (prefers-reduced-motion:reduce){.vol input[type=range]{transition:none}}
+
+#pantalla .ic-cerrar{display:none}
+#pantalla[aria-pressed="true"] .ic-abrir{display:none}
+#pantalla[aria-pressed="true"] .ic-cerrar{display:block}
+/* Como el de parar: el dibujo ya dice en cuál de los dos estados está. */
+#pantalla[aria-pressed="true"]{background:none;color:var(--gris)}
+#pantalla[aria-pressed="true"]:hover{color:var(--tinta)}
+.cuenta,.emisora{font-family:var(--ficha);font-weight:400;font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gris);line-height:1}
+/* El nombre de la emisora es también el modo de cambiarla, así que va
+   subrayado: es lo único de la fila que se puede tocar y no parece botón. */
+/* El relleno de abajo es el mismo que el de la cuenta, y va escrito acá
+   porque este bloque viene después y un «padding:0» se lo comía. */
+.emisora{background:none;border:none;padding:0 0 .44rem;cursor:pointer;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.4em}
+.emisora:hover,.emisora:focus-visible{color:var(--tinta)}
+.emisora[hidden]{display:none}
+
+/* La tarjeta queda clavada en el borde derecho del recuadro, centrada sobre
+   él: mitad adentro, mitad afuera. Antes se medía la foto puesta y la tarjeta
+   iba a buscar su esquina, lo que era exacto pero la hacía saltar unos píxeles
+   con cada cambio de foto, y eso molesta a la vista. Fija, las apaisadas —que
+   son 106 de 116— la tocan igual; las seis que están paradas quedan sin
+   alcanzarla, y es un precio barato por la quietud. */
+/* Sin la bajada la tarjeta quedaría apretada contra su propio texto. Se le
+   deja el mismo cuerpo y el aire va adentro: el nombre respira y el «conocer
+   más» queda lejos, que es lo que la hace parecer una tarjeta y no un cartel. */
+.tarjeta{position:absolute;right:0;bottom:-2.4rem;transform:translateX(50%);
+  width:clamp(13rem,20vw,15.5rem);min-height:10.5rem;
+  display:flex;flex-direction:column;
+  display:block;text-decoration:none;color:inherit;
+  background:var(--papel);box-shadow:0 2px 26px rgba(19,18,15,.14);
+  padding:1.05rem 1.1rem .95rem;transition:background .18s}
+/* En oscuro la sombra no se distingue contra la foto, así que la tarjeta
+   necesita un filo para seguir leyéndose como tarjeta. */
+:root[data-tema="oscuro"] .tarjeta{border:1px solid var(--linea)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema="claro"]) .tarjeta{border:1px solid var(--linea)}
+}
+.tarjeta .arriba{display:block;font-family:var(--ficha);font-weight:400;font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--gris)}
+.tarjeta h2{font-family:var(--titulo);font-weight:400;font-size:calc(1.36rem * var(--tam));line-height:1.14;
+  letter-spacing:-.012em;margin:.5rem 0 0;transition:letter-spacing .18s}
+.tarjeta .bajada{font-size:calc(.82rem * var(--tam));margin:.55rem 0 0}
+/* «Conocer más» es una invitación, no una categoría: va en la letra del
+   nombre y en minúscula. El rótulo de arriba, «workshop», sí clasifica, y por
+   eso se queda en versalitas. */
+.tarjeta .entrar{display:inline-block;font-family:var(--titulo);font-weight:400;
+  font-size:calc(.92rem * var(--tam));margin-top:auto;padding-top:1.4rem}
+/* Al pasarle por encima, la tarjeta del workshop se llena del único color
+   que tiene el sitio. Las tres de abajo se llenan de tinta; esta de color,
+   porque es la principal y conviene que se distinga de las otras. */
+.tarjeta:hover,.tarjeta:focus-visible{background:var(--acento);color:var(--papel)}
+/* La Geist Serif no tiene cursiva, así que el navegador la inventaría
+   deformando la letra. En su lugar, al pasar por encima la palabra se abre
+   un poco: el relleno de tinta ya es la señal fuerte, esto la acompaña. */
+.tarjeta:hover h2,.tarjeta:focus-visible h2{letter-spacing:.004em}
+.tarjeta:hover .arriba,.tarjeta:focus-visible .arriba{color:var(--papel);opacity:.78}
+
+/* Las tres de abajo, a todo el ancho. Al pasar por encima se dan vuelta en
+   tinta llena y la palabra se pone en itálica. */
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding-bottom:2.4rem}
+.chi{display:flex;flex-direction:column;justify-content:flex-end;min-height:7.1rem;
+  text-decoration:none;color:inherit;border:1px solid var(--linea);padding:1rem .95rem .9rem;
+  transition:border-color .18s, background .18s, color .18s}
+.chi .palabra{font-family:var(--titulo);font-size:calc(1.82rem * var(--tam));line-height:1.02;
+  letter-spacing:-.018em;display:block;transition:letter-spacing .18s}
+/* Las bajadas tienen distinto largo; sin un alto fijo, las tres palabras
+   arrancan a distinta altura y se nota. */
+/* La frase no es un rótulo: es una frase. Por eso va en la misma serif del
+   nombre, en minúscula y en un gris más claro, en lugar de en versalitas
+   espaciadas, que es el disfraz con el que se visten las etiquetas. Y va dos
+   pasos por detrás de la palabra —más chica y más clara— para que el nombre
+   se lea primero y de lejos. */
+.chi .que{display:block;font-family:var(--titulo);font-weight:400;font-size:calc(.82rem * var(--tam));
+  color:var(--gris-claro);margin-top:.34rem;line-height:1.3;height:1.35em;overflow:hidden;
+  transition:color .18s}
+.chi:hover,.chi:focus-visible{border-color:var(--tinta);background:var(--tinta);color:var(--papel)}
+.chi:hover .que,.chi:focus-visible .que{color:#a39d91}
+.chi:hover .palabra,.chi:focus-visible .palabra{letter-spacing:.01em}
+
+/* Medía 48rem y arrancaba pegada al margen izquierdo, así que el filete de
+   arriba se cortaba a mitad de página y el bloque entero quedaba escorado.
+   Ahora el filete cruza de lado a lado, como el de la cabecera, y el texto va
+   centrado debajo, justificado y más ancho, así cierra parejo de los dos
+   lados y ocupa menos alto. */
+.semblanza{border-top:1px solid var(--tinta);margin-top:1rem;padding:1.1rem 0 2.4rem}
+.semblanza p{margin:0 auto .7rem;max-width:58rem;font-size:calc(.95rem * var(--tam));
+  /* Justificado, para que el bloque cierre como un rectángulo. Va con guionado
+     automático: justificar sin partir palabras abre ríos de espacio en blanco
+     entre las palabras, sobre todo en castellano, que tiene palabras largas. */
+  text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.semblanza p:last-child{margin-bottom:0}
+.semblanza .chico{font-size:calc(.82rem * var(--tam));color:var(--gris);line-height:1.5}
+.semblanza a{color:var(--tinta)}
+
+@media (max-width:860px){
+  /* En el teléfono no hay aire al costado: la foto va a todo el ancho y la
+     tarjeta pasa a apoyarse debajo, montada apenas sobre el borde. Lleva
+     z-index porque la foto está posicionada y si no le pasa por encima. */
+  .cuadro{width:100%}
+  .tarjeta{position:relative;z-index:2;width:100%;right:auto;bottom:auto;
+    transform:none;margin-top:-2.2rem}
+  .escena{padding-block:1.6rem 1.2rem}
+  /* La tarjeta se apoya pegada a la foto y empuja todo hacia abajo, así que
+     acá los mandos no necesitan el aire que necesitan en pantalla ancha. */
+  .mandos{margin-top:1.1rem}
+  /* Viendo las fotos solas, en un teléfono el ancho es todo lo que hay: una
+     foto apaisada en una pantalla parada ya es chica de por sí, y el margen
+     de los costados le sacaba lo poco que le quedaba. */
+  body.solas .escena{padding-left:0;padding-right:0}
+  body.solas .secuencia{width:min(100vw, calc((100vh - 7rem) * 1.5))}
+  .chi{min-height:6rem;padding:.7rem .62rem .62rem}
+  .chi .palabra{font-size:calc(1.3rem * var(--tam))}
+  .chi .que{font-size:calc(.72rem * var(--tam));height:2.7em;line-height:1.3}
+  .tres{gap:.55rem}
+}
+@media (prefers-reduced-motion:reduce){.secuencia img{transition:none}}
+</style>
+
+<script>try{var t=localStorage.getItem('tema');if(t)document.documentElement.setAttribute('data-tema',t)}catch(e){}</script>
+</head><body>
+<div class="limite">
+  <div class="filete">
+    <p class="nombre">Nicolás Gicovate</p>
+    <div class="cabecera-der">
+      <form class="buscar" action="buscar.html" role="search">
+        <span class="campo">
+          <svg class="lupa" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m10.5 10.5 3.3 3.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <input type="search" name="q" placeholder="Buscar" aria-label="Buscar una palabra" autocomplete="off" spellcheck="false">
+          <span class="rueda" aria-hidden="true"></span>
+        </span>
+        <button class="ir" type="submit" aria-label="Buscar"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m6 3.5 4.5 4.5L6 12.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+      <div class="pastilla banderas" id="idioma" role="group" aria-label="Idioma">
+        <button type="button" data-lang="es" aria-pressed="true" data-nombre="Español" aria-label="Español">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+          <defs><clipPath id="c-ar"><path d="M8.2 3.2 L3.6 5.9 L2.1 10.2 L5.3 11.4 L6.3 10.1 L6.3 21 L17.7 21 L17.7 10.1 L18.7 11.4 L21.9 10.2 L20.4 5.9 L15.8 3.2 C14.9 5.8 9.1 5.8 8.2 3.2 Z"/></clipPath></defs>
+          <g clip-path="url(#c-ar)"><rect width="24" height="24" fill="#2C4B9B"/></g>
+          <path d="M8.2 3.2 L3.6 5.9 L2.1 10.2 L5.3 11.4 L6.3 10.1 L6.3 21 L17.7 21 L17.7 10.1 L18.7 11.4 L21.9 10.2 L20.4 5.9 L15.8 3.2 C14.9 5.8 9.1 5.8 8.2 3.2 Z" fill="none" stroke="#8C8880" stroke-width="1.1" stroke-linejoin="round"/>
+        </svg>
+        </button>
+        <button type="button" data-lang="en" aria-pressed="false" data-nombre="English" aria-label="English">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+          <defs><clipPath id="c-en"><path d="M8.2 3.2 L3.6 5.9 L2.1 10.2 L5.3 11.4 L6.3 10.1 L6.3 21 L17.7 21 L17.7 10.1 L18.7 11.4 L21.9 10.2 L20.4 5.9 L15.8 3.2 C14.9 5.8 9.1 5.8 8.2 3.2 Z"/></clipPath></defs>
+          <g clip-path="url(#c-en)"><rect width="24" height="24" fill="#fff"/><rect x="11" y="6.5" width="2" height="14.5" fill="#CE1124"/><rect x="6.3" y="11.8" width="11.4" height="2" fill="#CE1124"/></g>
+          <path d="M8.2 3.2 L3.6 5.9 L2.1 10.2 L5.3 11.4 L6.3 10.1 L6.3 21 L17.7 21 L17.7 10.1 L18.7 11.4 L21.9 10.2 L20.4 5.9 L15.8 3.2 C14.9 5.8 9.1 5.8 8.2 3.2 Z" fill="none" stroke="#8C8880" stroke-width="1.1" stroke-linejoin="round"/>
+        </svg>
+        </button>
+      </div>
+      <div class="pastilla" id="tema" role="group" aria-label="Tema">
+        <button type="button" data-tema="claro" aria-pressed="true">Light</button>
+        <button type="button" data-tema="oscuro" aria-pressed="false">Dark</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="escena">
+    <div class="cuadro">
+    <div class="secuencia" id="secuencia">
+      <img class="visible" src="fotos/muelle.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/tierra-rodar-1.jpg" alt="Una casa rodante">
+      <img data-src="fotos/muelle-10.jpg" alt="Siluetas al final de un muelle al atardecer">
+      <img data-src="fotos/breakdance-1.jpg" alt="Un bailarín de breakdance cabeza abajo">
+      <img data-src="fotos/blues-10.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/carrito-2.jpg" alt="Bajando una cuesta sobre un carrito de madera">
+      <img data-src="fotos/optimist-10.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/colectivo-1.jpg" alt="Alguien dormido en el asiento de un colectivo">
+      <img data-src="fotos/overthinking-1.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/bebe-geronimo.jpg" alt="Las piernas de un bebé recién nacido">
+      <img data-src="fotos/carrito-3.jpg" alt="Bajando una cuesta sobre un carrito de madera">
+      <img data-src="fotos/boxeo.jpg" alt="Guantes y botas de box colgados junto a una ventana">
+      <img data-src="fotos/navegada-5.jpg" alt="Dos amigos riéndose a bordo, a contraluz">
+      <img data-src="fotos/abuelo.jpg" alt="Autorretrato con mi abuelo">
+      <img data-src="fotos/cartagena.jpg" alt="Una mujer sonríe junto a un puesto de frutas, en Cartagena">
+      <img data-src="fotos/arbol-y-auto.jpg" alt="Un árbol viejo y un auto estacionado entre plantas">
+      <img data-src="fotos/cavilaciones.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/arrumacos-en-cacciola.jpg" alt="Un hombre y una bicicleta a bordo del barco">
+      <img data-src="fotos/clases-colombia-3.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/blues-train.jpg" alt="Blues Train">
+      <img data-src="fotos/dibujo-saltando.jpg" alt="Un dibujo de figuras saltando, pinchado en un corcho">
+      <img data-src="fotos/cascada.jpg" alt="Gente bajo una cascada">
+      <img data-src="fotos/entre-las-rocas.jpg" alt="Un chico en la playa, visto entre dos rocas">
+      <img data-src="fotos/cielo.jpg" alt="Un farol contra el cielo nublado">
+      <img data-src="fotos/estudio-researcher.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/clases-colombia-1.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/colectivo-3.jpg" alt="Una nena y una mujer en el asiento del colectivo">
+      <img data-src="fotos/flor-que-orbito.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/dinosaurio.jpg" alt="Dos hermanos mirando hacia arriba un dinosaurio de metal, en un parque">
+      <img data-src="fotos/frio.jpg" alt="Una estructura de madera bajo la nieve, de noche">
+      <img data-src="fotos/garotas-de-ipanema.jpg" alt="Dos chicas en la playa de Ipanema">
+      <img data-src="fotos/globos.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/hoja-de-ginkgo.jpg" alt="Un chico con una hoja de ginkgo junto a la ventanilla de un auto, y su hermano mirándolo desde adentro">
+      <img data-src="fotos/hamaca-amarilla.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/jardin-contraluz.jpg" alt="Un sendero de jardín con el sol a contraluz">
+      <img data-src="fotos/luz-artificial.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/lobo-marino.jpg" alt="Un lobo marino junto a un pescador que filetea">
+      <img data-src="fotos/madre-e-hija.jpg" alt="Dos mujeres en la puerta de una casa, en Medellín">
+      <img data-src="fotos/mano-de-piedra.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/maquina-de-escribir.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/maquinista.jpg" alt="Un maquinista asomado a una locomotora roja">
+      <img data-src="fotos/milonga.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/mate.jpg" alt="Un mate">
+      <img data-src="fotos/mini-hombre-de-la-city.jpg" alt="Un chico de camisa y corbata contra una pared de ladrillos">
+      <img data-src="fotos/mexico-df.jpg" alt="Una mujer abre la puerta de una casa en México DF">
+      <img data-src="fotos/musica-de-sofa.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/murga.jpg" alt="Las piernas de una murga bailando de noche">
+      <img data-src="fotos/noche-en-el-campo.jpg" alt="Un campo de noche, apenas iluminado">
+      <img data-src="fotos/navegada.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/olimpiada-inventiva.jpg" alt="Chicos en la olimpíada argentina de inventiva">
+      <img data-src="fotos/overthinking-3.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/padre-hijo-colectivo.jpg" alt="Un padre y su hijo en el colectivo">
+      <img data-src="fotos/patovas.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/padre-hijo-delta.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/pileta.jpg" alt="Un nadador solo junto a una pileta olímpica">
+      <img data-src="fotos/pandilla-al-atardecer.jpg" alt="Unos chicos sentados sobre una muralla, al atardecer">
+      <img data-src="fotos/reading-in-the-dark.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/pared-rosa.jpg" alt="Una pared rosa contra el cielo">
+      <img data-src="fotos/skater.jpg" alt="Un skater en bajada con las manos en el asfalto">
+      <img data-src="fotos/patinadoras.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/solos-y-solas.jpg" alt="Casi todo oscuro, apenas una forma">
+      <img data-src="fotos/perdido.jpg" alt="Un cartel de perro perdido en una pared con sombras">
+      <img data-src="fotos/muelle-11.jpg" alt="Una caña de pescar sobre el agua">
+      <img data-src="fotos/blues-2.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/perro-en-la-calle.jpg" alt="Un perro sentado junto a un poste, en la vereda">
+      <img data-src="fotos/optimist-3.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/pingponguista.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/overthinking-5.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/pintura-azul.jpg" alt="Pintura blanca chorreada sobre azul">
+      <img data-src="fotos/carrito.jpg" alt="Bajando una cuesta sobre un carrito de madera">
+      <img data-src="fotos/puerta.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/navegada-6.jpg" alt="Siluetas a bordo contra el sol bajo">
+      <img data-src="fotos/salto.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/muelle-2.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/solos-y-solas-2.jpg" alt="Casi todo oscuro, apenas una forma">
+      <img data-src="fotos/blues-3.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/optimist-4.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/vecino-carpintero.jpg" alt="Una persona haciendo la vertical en un jardín">
+      <img data-src="fotos/overthinking-6.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/visor-3.jpg" alt="Un visor de monedas frente al mar">
+      <img data-src="fotos/muelle-2017.jpg" alt="Pescadores al final de un muelle sobre el río">
+      <img data-src="fotos/visor-amarillo.jpg" alt="Un visor de monedas amarillo frente al mar">
+      <img data-src="fotos/blues-4.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/visor-verde.jpg" alt="Un visor de monedas verde frente al mar">
+      <img data-src="fotos/optimist-5.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/yo.jpg" alt="Autorretrato reflejado en una vidriera, con la cámara en la cara">
+      <img data-src="fotos/muelle-3.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/tierra-rodar-2.jpg" alt="Una casa rodante">
+      <img data-src="fotos/blues-5.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/optimist-7.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/breakdance-2.jpg" alt="Un salto sobre el ring, bajo las luces">
+      <img data-src="fotos/muelle-4.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/carrito-4.jpg" alt="Un hombre con un carrito de supermercado en una playa de estacionamiento">
+      <img data-src="fotos/blues-6.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/colectivo-2.jpg" alt="Un hombre dormido contra la ventanilla">
+      <img data-src="fotos/optimist-8.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/tierra-rodar-3.jpg" alt="Una casa rodante">
+      <img data-src="fotos/muelle-5.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/breakdance-3.jpg" alt="Manos sobre las sogas del ring, bajo luz roja">
+      <img data-src="fotos/blues-7.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/tierra-rodar-4.jpg" alt="Una casa rodante">
+      <img data-src="fotos/optimist-9.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/muelle-6.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/breakdance-4.jpg" alt="El público alrededor del ring">
+      <img data-src="fotos/blues-8.jpg" alt="Fotografía de Nicolás Gicovate">
+      <img data-src="fotos/tierra-rodar-5.jpg" alt="Una casa rodante">
+      <img data-src="fotos/optimist.jpg" alt="Serie i am an Optimist">
+      <img data-src="fotos/breakdance-5.jpg" alt="Una mano extendida entre la cuadrilla, bajo luz azul">
+      <img data-src="fotos/muelle-7.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/tierra-rodar-6.jpg" alt="Una casa rodante">
+      <img data-src="fotos/muelle-8.jpg" alt="Crónica sobre un muelle">
+      <img data-src="fotos/tierra-rodar-7.jpg" alt="Una casa rodante">
+      <img data-src="fotos/muelle-9.jpg" alt="Crónica sobre un muelle">
+    </div>
+    <a class="tarjeta" href="each.html">
+      <span class="arriba">Workshop</span>
+      <h2><span class="es">El arte de conectar con humanos</span><span class="en">The art of connecting with humans</span></h2>
+      <span class="entrar"><span class="es">Conocer más →</span><span class="en">Read more →</span></span>
+    </a>
+    </div>
+    <!-- Los símbolos son los de cualquier reproductor: dos barras para parar,
+         el triángulo para seguir, y el triángulo contra una barra para saltar
+         de foto, como se salta de tema. Van dibujados acá y no puestos como
+         caracteres (⏸ ⏭) porque cada sistema los dibuja a su manera y algunos
+         los convierten en emoji de color, que acá cantaría. -->
+    <div class="mandos">
+      <div class="pastilla" role="group" aria-label="Las fotos">
+        <button type="button" id="foto-antes" aria-label="Foto anterior">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5.9" y="6" width="2.2" height="12" rx=".4"/><path d="M18.4 6.5v11L10.2 12z"/></svg>
+        </button>
+        <button type="button" id="foto-pausa" aria-pressed="false" aria-label="Parar las fotos">
+          <svg class="ic-pausa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7.8" y="5.9" width="2.9" height="12.2" rx=".4"/><rect x="13.3" y="5.9" width="2.9" height="12.2" rx=".4"/></svg>
+          <svg class="ic-sigue" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.6 5.6v12.8L18.6 12z"/></svg>
+        </button>
+        <button type="button" id="foto-despues" aria-label="Foto siguiente">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.6 6.5v11l8.2-5.5z"/><rect x="15.9" y="6" width="2.2" height="12" rx=".4"/></svg>
+        </button>
+      </div>
+      <div class="pastilla" role="group" aria-label="Pantalla">
+        <button type="button" id="pantalla" aria-pressed="false" data-nombre="Full screen" aria-label="Ver las fotos solas">
+          <svg class="ic-abrir" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5V4h5.5M20 9.5V4h-5.5M4 14.5V20h5.5M20 14.5V20h-5.5"/></svg>
+          <svg class="ic-cerrar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 4v5.5H4M14.5 4v5.5H20M9.5 20v-5.5H4M14.5 20v-5.5H20"/></svg>
+        </button>
+      </div>
+      <span class="cuenta" id="cuenta"></span>
+      <!-- La vitrola. La bocina va dibujada —el mástil, la vela curva y el
+           cuello que baja— y el mueble no se dibuja: es una cajita de verdad.
+           Adentro vive todo lo de la música: el nombre, que es el que la
+           prende y la apaga; el botón de parar; y el volumen, que se abre
+           como una barrita al apretarlo. Así no hay botones sueltos dando
+           vueltas por la fila: lo de la música está adentro de la vitrola, y
+           lo de las fotos afuera. -->
+      <div class="vitrola">
+        <svg class="bocina" viewBox="0 0 42 30" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5.4 2.8V16.6"/>
+          <path d="M5.4 2.8C18.6 4.9 31.6 11 38.8 22.2"/>
+          <path d="M5.4 16.6c12-1 25.1 1.1 33.4 5.6"/>
+          <path d="M38.8 22.2c1.8 3 .5 6.2-3.7 6.7"/>
+        </svg>
+        <div class="caja">
+          <button type="button" id="radio" class="prender" aria-pressed="false">&#9834; jazz</button>
+          <button type="button" id="mus-pausa" aria-pressed="false" aria-label="Parar la música" hidden>
+            <svg class="ic-pausa" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7.8" y="5.9" width="2.9" height="12.2" rx=".4"/><rect x="13.3" y="5.9" width="2.9" height="12.2" rx=".4"/></svg>
+            <svg class="ic-sigue" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.6 5.6v12.8L18.6 12z"/></svg>
+          </button>
+          <span class="vol" id="vol" hidden>
+            <button type="button" id="vol-boton" aria-label="Volumen" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9.4h3.4L11.8 5.6v12.8L7.4 14.6H4z" fill="currentColor"/>
+                <g class="ondas" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                  <path d="M14.8 9.4a3.9 3.9 0 0 1 0 5.2"/>
+                  <path d="M17.4 6.9a7.5 7.5 0 0 1 0 10.2"/>
+                </g>
+                <g class="muda" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                  <path d="M15 9.6l4.6 4.8M19.6 9.6L15 14.4"/>
+                </g>
+              </svg>
+            </button>
+            <input type="range" id="vol-barra" min="0" max="1" step="0.05" value="1" aria-label="Volumen">
+          </span>
+        </div>
+      </div>
+      <button type="button" class="emisora" id="emisora" hidden></button>
+    </div>
+  </div>
+
+  <nav class="tres">
+    <a class="chi" href="juego.html">
+      <span class="palabra"><span class="es">Juego</span><span class="en">Play</span></span>
+      <span class="que"><span class="es">Un modo de operar</span><span class="en">A way of operating</span></span>
+    </a>
+    <a class="chi" href="cuaderno-de-apuntes.html">
+      <span class="palabra"><span class="es">Apunto</span><span class="en">Note</span></span>
+      <span class="que"><span class="es">Escribir para ver</span><span class="en">Writing to see</span></span>
+    </a>
+    <a class="chi" href="cuentos.html">
+      <span class="palabra"><span class="es">Cuento</span><span class="en">Tell</span></span>
+      <span class="que"><span class="es">Contar para revivir</span><span class="en">Telling to live it again</span></span>
+    </a>
+  </nav>
+
+  <div class="semblanza">
+    <p>Semblanza de mí: Trabajo en la intersección entre la investigación social y el diseño de experiencias. Investigo la interacción entre las personas y la tecnología. Hago research aplicado para compañías y organizaciones. Estudié ciencia política en Buenos Aires e hice un Master of Science in Media, Communications and Research Methodologies en la London School of Economics, en Londres. Enseño metodología de la investigación.</p>
+    <p>Soy escritor y fotógrafo amateur.</p>
+    <p>¡Anímese, escríbame! Esta es mi dirección de correo: <a href="mailto:ngicovate@gmail.com">ngicovate@gmail.com</a></p>
+    <p class="chico">Todas o casi todas las fotos y los textos que aparecen en este espacio son Copyleft © Nicolás Gicovate, salvo que expresamente se indique la autoría de otros poetas e investigadores.</p>
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+  var r=document.documentElement;
+  var banderas=document.getElementById('idioma');
+  banderas.addEventListener('click',function(ev){
+    var b=ev.target.closest('button'); if(!b) return;
+    r.setAttribute('data-lang',b.dataset.lang);
+    [].forEach.call(banderas.querySelectorAll('button'),function(x){
+      x.setAttribute('aria-pressed', x.dataset.lang===b.dataset.lang?'true':'false');
+    });
+  });
+
+  var caja=document.getElementById('secuencia');
+  var fotos=[].slice.call(caja.querySelectorAll('img')), i=0;
+  var cuenta=document.getElementById('cuenta');
+  var bPausa=document.getElementById('foto-pausa');
+  var quieto=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reloj=null, pausada=false;
+
+  function cargar(n){
+    var f=fotos[(n+fotos.length)%fotos.length];
+    if(!f.src && f.dataset.src) f.src=f.dataset.src;
+  }
+  // Se adelantan las dos vecinas, no sólo la siguiente: ahora también se puede
+  // ir para atrás, y una foto que no llegó a cargar aparece como un hueco.
+  function ir(paso){
+    fotos[i].classList.remove('visible');
+    i=(i+paso+fotos.length)%fotos.length;
+    cargar(i); cargar(i+1); cargar(i-1);
+    fotos[i].classList.add('visible');
+    cuenta.textContent=(i+1)+' / '+fotos.length;
+  }
+  // Apenas más rápido que antes, que eran 4200: lo justo para que la foto
+  // siguiente llegue antes de que uno se haya acomodado del todo en la que
+  // está mirando.
+  function arrancar(){ if(reloj) return; reloj=setInterval(function(){ir(1);},3700); }
+  function parar(){ clearInterval(reloj); reloj=null; }
+  function poner(p){
+    pausada=p;
+    if(p) parar(); else arrancar();
+    // El dibujo lo cambia el CSS mirando aria-pressed: puesto en true se ve el
+    // triángulo de seguir, y en false las dos barras de parar.
+    bPausa.setAttribute('aria-pressed',p?'true':'false');
+    bPausa.setAttribute('aria-label',p?'Seguir pasando las fotos solas':'Parar las fotos');
+  }
+  cargar(1);
+  cuenta.textContent='1 / '+fotos.length;
+  // Con el sistema puesto en «menos movimiento» arrancan quietas, pero las
+  // flechas siguen andando: quien no quiere que se muevan solas igual puede
+  // mirarlas de a una.
+  poner(quieto);
+  bPausa.addEventListener('click',function(){ poner(!pausada); });
+  // Pasar a mano es tomar el control. Si no, la siguiente llega sola a mitad
+  // de la foto que uno fue a buscar.
+  function aMano(paso){ poner(true); ir(paso); }
+  document.getElementById('foto-antes').addEventListener('click',function(){aMano(-1);});
+  document.getElementById('foto-despues').addEventListener('click',function(){aMano(1);});
+  // Las fotos solas: el cuadro al frente, sin la tarjeta del workshop y sin
+  // nada más de la página. Sigue siendo la misma página, así que la radio no
+  // se corta. Entrar acá es pedir la función, así que el pase arranca solo
+  // aunque estuviera parado. La única excepción es quien tiene puesto
+  // «menos movimiento» en su sistema: a ese no se le arranca nada solo.
+  var bPantalla=document.getElementById('pantalla');
+  function solas(v){
+    document.body.classList.toggle('solas',v);
+    bPantalla.setAttribute('aria-pressed',v?'true':'false');
+    bPantalla.setAttribute('aria-label',v?'Volver a la página':'Ver las fotos solas');
+    // El globito cambia con el botón: adentro ya no sirve que diga a dónde
+    // vas a entrar, sino de dónde vas a salir.
+    bPantalla.setAttribute('data-nombre',v?'Volver a la página':'Full screen');
+    if(v && !quieto) poner(false);
+  }
+  bPantalla.addEventListener('click',function(){
+    solas(!document.body.classList.contains('solas'));
+  });
+
+  document.addEventListener('keydown',function(ev){
+    if(ev.metaKey||ev.ctrlKey||ev.altKey) return;
+    var t=ev.target||{};
+    if(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable) return;
+    if(ev.key==='Escape'){ solas(false); }
+    else if(ev.key==='ArrowLeft'){ aMano(-1); }
+    else if(ev.key==='ArrowRight'){ aMano(1); }
+    else if(ev.key===' '||ev.key==='Spacebar'){
+      // Con un botón enfocado, la barra ya es su propio clic.
+      if(t.tagName==='BUTTON'||t.tagName==='A') return;
+      ev.preventDefault(); poner(!pausada);
+    }
+  });
+
+  // La música. No son emisoras sueltas sino listas con nombre, y cada nombre
+  // es un lugar: lo que suena viene de ahí. La primera, la que arranca puesta,
+  // es jazz de acá. Tocando el nombre se pasa a la que sigue.
+  //
+  // Por qué siguen siendo emisoras y no una lista de temas elegidos a mano:
+  // para pasar una grabación concreta —Pipi Piazzolla, Escalandrum, e.s.t.—
+  // hace falta quien tenga la licencia de esa grabación. Una página suelta no
+  // la tiene. Una emisora sí, y además no se vence nunca. Cada lista puede
+  // tener más de una: si la primera se cae, se pasa sola a la que sigue.
+  var LISTAS=[
+    {nombre:'jazz de acá', de:[
+      {quien:'Blackie 89.1 · Buenos Aires',
+       url:'https://playerservices.streamtheworld.com/api/livestream-redirect/BLACKIE_89_1.mp3'}]},
+    {nombre:'jazz japonés', de:[
+      {quien:'Jazz Sakura · asia dream radio', url:'https://kathy.torontocast.com:3330/stream/1/'},
+      {quien:'Ashiya Radio · Hyōgo', url:'https://s3.radio.co/sc8d895604/listen'}]},
+    {nombre:'jazz israelí', de:[
+      {quien:'100% Jazz · Tel Aviv',
+       url:'https://gb25.streamgates.net/radios-audio/100Jazz/icecast.audio'}]},
+    {nombre:'jazz brasilero', de:[
+      {quien:'Bossa Jazz Brasil', url:'https://centova5.transmissaodigital.com:20104/live'}]},
+    // Se probó SomaFM Sonic Universe, que era lo más cerca de «jazz joven»,
+    // pero no deja que la llamen desde otra página: el navegador recibe un 403
+    // y el audio no arranca nunca. WBGO es la que queda, y es la que más pasa
+    // a la generación nueva del jazz norteamericano.
+    {nombre:'jazz americano', de:[
+      {quien:'WBGO 88.3 · Newark', url:'https://ais-sa8.cdnstream1.com/3629_128.mp3'},
+      {quien:'Jazz24 · KNKX, Tacoma', url:'https://knkx-live-a.edge.audiocdn.com/6285_64k'}]},
+    {nombre:'jazz escandinavo', de:[
+      {quien:'NRK Jazz · Oslo', url:'https://lyd.nrk.no/nrk_radio_jazz_mp3_h'},
+      {quien:'P8 Jazz · DR, Copenhague', url:'https://live-icy.dr.dk/A/A22H.mp3'}]},
+    {nombre:'jazz de siempre', de:[
+      {quien:'The Jazz Groove · mix 1', url:'https://west-mp3-128.streamthejazzgroove.com/stream'},
+      {quien:'The Jazz Groove · mix 2', url:'https://east-mp3-128.streamthejazzgroove.com/stream'}]}
+  ];
+  var bRadio=document.getElementById('radio'), rotulo=document.getElementById('emisora');
+  var bMusPausa=document.getElementById('mus-pausa');
+  var cajaVol=document.getElementById('vol'), bVol=document.getElementById('vol-boton');
+  var barraVol=document.getElementById('vol-barra');
+  var audio=null, lista=0, dentro=0, puesta=false, guardia=null, parada=false;
+
+  // El volumen se guarda, así que el que lo dejó bajito no se lo encuentra
+  // fuerte la próxima vez.
+  var vol=1;
+  try{ var g=localStorage.getItem('volumen'); if(g!==null) vol=Math.min(1,Math.max(0,+g)); }catch(e){}
+  barraVol.value=vol;
+  function aplicarVolumen(){
+    if(audio) audio.volume=vol;
+    cajaVol.classList.toggle('sin-sonido',vol<=0);
+    try{ localStorage.setItem('volumen',vol); }catch(e){}
+  }
+  barraVol.addEventListener('input',function(){ vol=+barraVol.value; aplicarVolumen(); });
+  // Apretar el parlante abre la barrita, que es lo que hace falta en un
+  // teléfono, donde no hay manera de pasar el mouse por encima.
+  bVol.addEventListener('click',function(){
+    var abierta=cajaVol.classList.toggle('abierta');
+    bVol.setAttribute('aria-expanded',abierta?'true':'false');
+    if(abierta) barraVol.focus();
+  });
+  function mostrarMandos(v){
+    bMusPausa.hidden=!v; cajaVol.hidden=!v;
+    if(!v){ cajaVol.classList.remove('abierta'); bVol.setAttribute('aria-expanded','false'); }
+    if(v) aplicarVolumen();
+  }
+  function pausarMusica(v){
+    parada=v;
+    if(!audio) return;
+    bMusPausa.setAttribute('aria-pressed',v?'true':'false');
+    bMusPausa.setAttribute('aria-label',v?'Seguir la música':'Parar la música');
+    if(v){ audio.pause(); clearTimeout(guardia); }
+    else { var q=audio.play(); if(q&&q.catch) q.catch(function(){}); }
+  }
+  bMusPausa.addEventListener('click',function(){ pausarMusica(!parada); });
+
+  // El rótulo dice el nombre de la lista; el globito, al pasarle por encima,
+  // dice qué emisora es la que está sonando.
+  function decir(t,globito,buscando){
+    rotulo.textContent=t||'';
+    rotulo.hidden=!t;
+    if(globito) rotulo.setAttribute('data-nombre',globito);
+    else rotulo.removeAttribute('data-nombre');
+    rotulo.classList.toggle('buscando',!!buscando);
+  }
+  function apagar(){
+    puesta=false; clearTimeout(guardia);
+    if(audio){ audio.pause(); audio.removeAttribute('src'); audio.load(); }
+    bRadio.setAttribute('aria-pressed','false');
+    mostrarMandos(false);
+    pausarMusica(false);
+  }
+  function siguiente(){
+    if(!puesta) return;
+    // Se prueban las otras de la misma lista. Si no queda ninguna, se avisa:
+    // no se salta a otro país, que sería darle a Nico algo que no pidió.
+    if(dentro+1 < LISTAS[lista].de.length){ sintonizar(lista, dentro+1); return; }
+    apagar(); decir(LISTAS[lista].nombre + ' no engancha', 'Tocá para probar otro', false);
+  }
+  function sintonizar(iL,iE){
+    lista=(iL+LISTAS.length)%LISTAS.length;
+    var L=LISTAS[lista];
+    dentro=(iE+L.de.length)%L.de.length;
+    var e=L.de[dentro];
+    if(!audio){
+      audio=new Audio(); audio.preload='none';
+      audio.addEventListener('playing',function(){
+        clearTimeout(guardia);
+        decir(LISTAS[lista].nombre, LISTAS[lista].de[dentro].quien, false);
+        mostrarMandos(true);
+      });
+      audio.addEventListener('error',siguiente);
+    }
+    audio.src=e.url;
+    audio.volume=vol;
+    if(parada) pausarMusica(false);
+    decir('sintonizando…','',true);
+    clearTimeout(guardia);
+    // Una emisora caída a veces no da error: se queda callada. A los nueve
+    // segundos sin sonido se prueba la que sigue.
+    guardia=setTimeout(function(){ if(puesta&&audio.paused) siguiente(); },9000);
+    var promesa=audio.play();
+    if(promesa&&promesa.catch) promesa.catch(function(){ apagar(); decir('no se pudo sintonizar','',false); });
+  }
+  bRadio.addEventListener('click',function(){
+    if(puesta){ apagar(); decir('','',false); return; }
+    puesta=true;
+    bRadio.setAttribute('aria-pressed','true');
+    sintonizar(lista,0);
+  });
+  // Tocar el nombre pasa a la lista siguiente, y vuelve a la primera al final.
+  // Anda también con la radio apagada: si una lista se cayó, el nombre tiene
+  // que poder llevarte igual a la que sigue en vez de quedarse muerto.
+  rotulo.addEventListener('click',function(){
+    if(!puesta){ puesta=true; bRadio.setAttribute('aria-pressed','true'); }
+    sintonizar(lista+1,0);
+  });
+})();
+</script>
+<script defer src="sitio.js?v=161ed4d4"></script>
+</body></html>

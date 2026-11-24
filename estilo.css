@@ -1,0 +1,601 @@
+/* Las Geist, de Vercel, con licencia libre (OFL; la copia está en
+   assets/fuentes/LICENCIA.txt). Van alojadas acá y no pedidas a Google: carga
+   más rápido y nadie se entera de quién visita el sitio.
+   La Serif salió en octubre de 2026 y por ahora existe solo en Regular, sin
+   negrita ni cursiva. Por eso los títulos van en peso normal —que a una serif
+   le sienta mejor que la negrita— y el hover de las tarjetas no usa cursiva:
+   el navegador la tendría que inventar deformando la letra. */
+@font-face{font-family:"Geist Serif";src:url("fuentes/GeistSerif-Regular.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Geist";src:url("fuentes/Geist-Variable.woff2") format("woff2");
+  font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Geist";src:url("fuentes/Geist-LightItalic.woff2") format("woff2");
+  font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Geist Mono";src:url("fuentes/GeistMono-Regular.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+
+/* El sitio de Gicovate. Proxima Nova Light, papel claro, línea gris.
+   El color lo ponen las fotos, no la interfaz. */
+:root{
+  --papel:#F8F8F5; --tinta:#13120F; --gris:#76756E; --linea:#D8D7D1;
+  --papel-hondo:#EDEDE9; --acento:#C8102E; --gris-claro:#99948A; --marcado:#E2E1DA;
+  --letra:"Geist",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --titulo:"Geist Serif",Georgia,"Times New Roman",serif;
+  --ficha:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--letra);font-weight:300;font-size:1.02rem;line-height:1.62}
+.limite{max-width:44rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 4rem}
+
+.filete{border-bottom:1px solid var(--tinta);padding:1.1rem 0 .6rem;margin-bottom:.4rem}
+.nombre{font-family:var(--titulo);font-size:1.3rem;line-height:1;margin:0 0 .5rem;color:var(--gris)}
+.nombre a{color:inherit;text-decoration:none}
+.nombre a:hover,.nombre a:focus-visible{color:var(--acento)}
+/* Juego, apunto y cuento son la frase que nombra el sitio: van más grandes
+   que el resto de la cabecera. EACH no es parte de la frase, así que se
+   queda en el cuerpo chico de antes. */
+.menu{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem 1.1rem;font-size:.98rem}
+.menu a.otra{font-size:.82rem}
+/* El punto que separa la frase de EACH. Lleva el doble de aire a los lados
+   que la separación normal entre secciones, para que se lea como un corte y
+   no como un cuarto elemento de la lista. */
+.menu .aparte{font-family:var(--titulo);color:var(--gris-claro);
+  margin-left:.9rem;margin-right:.9rem;user-select:none}
+.menu a{color:var(--gris);text-decoration:none}
+.menu a:hover,.menu a:focus-visible{color:var(--acento)}
+/* Antes la sección actual sólo cambiaba de gris a negro, y con letra tan
+   chica casi no se notaba. Ahora pesa más y lleva un filete abajo: se ve
+   de un vistazo dónde está uno parado. */
+.menu a[aria-current="page"]{color:var(--tinta);font-weight:600;
+  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.4rem;
+  text-decoration-color:var(--tinta)}
+
+/* Un punto más chico que antes: así «El arte de conectar con humanos
+   (EACH)», que es el título más largo del sitio, entra en un solo renglón
+   dentro de los 44rem de la caja de texto. */
+h1{font-family:var(--titulo);font-size:1.9rem;font-weight:400;line-height:1.08;letter-spacing:-.015em;margin:1.4rem 0 2rem}
+
+.entrada{border-top:1px solid var(--linea);padding:1.6rem 0}
+.entrada:first-of-type{border-top:none;padding-top:0}
+.fecha{font-family:var(--ficha);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);
+  font-variant-numeric:tabular-nums;margin:0 0 .5rem}
+.entrada h2{font-family:var(--titulo);font-size:1.4rem;font-weight:400;line-height:1.18;margin:0 0 .25rem;letter-spacing:-.005em}
+.autor{font-size:.82rem;line-height:1.4;color:var(--gris);margin:0 0 .7rem}
+.autor b{font-family:var(--titulo);font-weight:400;font-size:.95rem;color:var(--tinta)}
+.entrada p{margin:0 0 .85rem}
+.entrada > p:last-child{margin-bottom:0}
+
+figure{margin:0 0 .5rem}
+figure img{width:100%;display:block;background:var(--papel-hondo)}
+.pie{font-size:.82rem;line-height:1.45;color:var(--gris);
+  border-top:1px solid var(--linea);padding-top:.5rem}
+
+blockquote{margin:0;font-size:1.12rem;line-height:1.45;max-width:33rem}
+blockquote p{margin:0 0 .5rem}
+/* Un autor es un nombre, y en este sitio los nombres van en la serif: el de
+   Nico, los títulos, Juego, Apunto y Cuento. No van en versalitas rojas, que
+   los convertía en una etiqueta de clasificación. La serif existe solo en
+   peso normal, así que el peso lo da la letra misma, no la negrita. */
+.cita-autor{font-family:var(--titulo);font-size:.95rem;color:var(--tinta);margin:0}
+
+details{margin-top:-.2rem}
+/* «Continuar leyendo» es algo que se hace, no una categoría: va en minúscula
+   y en la letra del cuerpo. El rojo se queda, porque ahí sí dice «esto se
+   toca». */
+details > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;
+  font-size:.88rem;color:var(--acento);
+  padding:.35rem 0;border-bottom:1px solid transparent}
+details > summary::-webkit-details-marker{display:none}
+details > summary:hover,details > summary:focus-visible{border-bottom-color:var(--acento)}
+details > summary .flecha{transition:transform .2s ease;display:inline-block}
+details[open] > summary .flecha{transform:rotate(90deg)}
+details[open] > summary .abrir{display:none}
+details:not([open]) > summary .cerrar{display:none}
+.cuerpo{padding-top:.9rem}
+.cuerpo p:last-child{margin-bottom:0}
+
+.paginas{display:flex;flex-wrap:wrap;gap:.1rem .8rem;border-top:1px solid var(--tinta);
+  margin-top:2rem;padding-top:.9rem;font-size:.84rem;font-variant-numeric:tabular-nums}
+.paginas a{color:var(--gris);text-decoration:none}
+.paginas a:hover{color:var(--acento)}
+.paginas [aria-current="page"]{color:var(--tinta)}
+
+.pronto{font-style:italic;color:var(--gris)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* la página del curso */
+.curso .lede{font-size:1.24rem;line-height:1.4;margin-bottom:1.2rem}
+.curso blockquote{font-style:italic;border-left:2px solid var(--linea);padding-left:1rem;margin-bottom:1.2rem}
+.curso h2{font-family:var(--titulo);font-size:1.25rem;font-weight:400;letter-spacing:.02em;margin:2rem 0 .8rem}
+.clases{list-style:none;margin:0;padding:0;counter-reset:c}
+.clases li{counter-increment:c;padding:.7rem 0;border-top:1px solid var(--linea);padding-left:2.2rem;position:relative}
+.clases li::before{content:counter(c);position:absolute;left:0;top:.75rem;
+  font-size:.74rem;color:var(--acento);font-variant-numeric:tabular-nums}
+.clases b{font-weight:600}
+.curso .pronto{border-top:1px solid var(--tinta);margin-top:1.6rem;padding-top:.9rem;font-style:normal}
+.consignas{list-style:none;margin:0;padding:0}
+.consignas li{padding:.55rem 0 .55rem 1.1rem;border-top:1px solid var(--linea);position:relative}
+.consignas li::before{content:"·";position:absolute;left:.2rem;color:var(--acento)}
+
+/* ---- el cuaderno en azulejos ---- */
+.limite:has(.azulejos){max-width:72rem}
+/* La página del taller mide lo mismo que los mosaicos: era la única
+   angosta del sitio y se notaba al pasar de una pestaña a otra. */
+.limite:has(.curso){max-width:72rem}
+/* Grilla pareja: todas las tarjetas miden lo mismo, así no queda un solo
+   hueco. Las columnas CSS no sirven acá: con 444 tarjetas y las imágenes
+   cargando tarde, el navegador intenta balancearlas y colapsa en una sola. */
+/* Mientras estallan, las tarjetas se superponen y salen del marco. */
+.azulejos{position:relative}
+.azulejos{display:grid;grid-template-columns:repeat(auto-fill,minmax(14.5rem,1fr));
+  gap:1rem;grid-auto-rows:15.5rem}
+.azulejo{border:1px solid var(--linea);background:var(--papel);padding:.9rem;cursor:pointer;
+  display:block;height:100%;overflow:hidden;position:relative;
+  transition:border-color .15s ease,transform .15s ease}
+.azulejo:hover,.azulejo:focus-visible{border-color:var(--tinta);transform:translateY(-2px);outline:none}
+.azulejo:focus-visible{box-shadow:0 0 0 2px var(--acento)}
+.azulejo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3rem;
+  background:linear-gradient(transparent,var(--papel));pointer-events:none}
+.azulejo .fecha{margin-bottom:.4rem}
+.azulejo h2{font-family:var(--titulo);font-size:1.12rem;font-weight:400;line-height:1.25;margin:0 0 .3rem}
+.azulejo .autor{font-size:.76rem;margin:0 0 .4rem}
+.azulejo .resumen{font-size:.88rem;line-height:1.5;margin:0}
+.miniatura{width:calc(100% + 1.8rem);margin:-.9rem -.9rem .7rem;display:block;
+  height:7.5rem;object-fit:cover;background:var(--papel-hondo)}
+/* Los dibujos en vector toman el color de la tinta, así que el mismo archivo
+   sirve en claro y en oscuro. En la tarjeta ocupan el lugar de la miniatura,
+   centrados sobre el gris de fondo que usan las fotos. */
+.dibujo{color:var(--tinta)}
+.miniatura.dibujo{display:flex;align-items:center;justify-content:center}
+.miniatura.dibujo svg{width:auto;height:78%}
+.visor .adentro figure.dibujo.grande{margin:.2rem auto 1.4rem;width:11rem;max-width:60%}
+.visor .adentro figure.dibujo.grande svg{display:block;width:100%;height:auto}
+@media (max-width:620px){ .visor .adentro figure.dibujo.grande{width:8.5rem} }
+html.con-visor .azulejo .completo{display:none}
+
+/* ---- el visor: la tarjeta que pasa al frente ---- */
+.visor{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;
+  padding:max(16px,env(safe-area-inset-left,0px))}
+.visor[hidden]{display:none}
+.visor .fondo{position:absolute;inset:0;background:rgba(19,18,15,.55);cursor:pointer}
+.visor .tarjeta{position:relative;background:var(--papel);max-width:40rem;width:100%;
+  margin-top:3.6rem;max-height:calc(100vh - 5rem);overflow:auto;box-shadow:0 20px 60px rgba(19,18,15,.3)}
+.visor .adentro{padding:1.6rem 2rem 2.4rem}
+.visor .adentro h2{font-family:var(--titulo);font-size:1.5rem;font-weight:400;line-height:1.2;margin:0 0 .3rem}
+.visor .adentro p{margin:0 0 .85rem}
+.visor .adentro figure{margin:0 0 1rem}
+.visor .adentro img{max-height:66vh;width:auto;max-width:100%;margin:0 auto;display:block}
+.visor .mover{position:fixed;top:50%;transform:translateY(-50%);z-index:2;background:none;border:none;color:var(--papel);
+  font-size:2.6rem;line-height:1;padding:0 .7rem;cursor:pointer;opacity:.75;font-family:var(--letra)}
+.visor .antes{left:1.5rem} .visor .despues{right:1.5rem}
+.visor .mover:hover{opacity:1}
+.visor .mover:disabled{opacity:.2;cursor:default}
+.visor .cerrar{position:fixed;top:1rem;right:1.2rem;z-index:3;
+  background:none;border:none;color:var(--papel);cursor:pointer;
+  font-family:var(--letra);font-size:1.9rem;line-height:1;padding:.2rem .5rem;opacity:.7}
+.visor .cerrar:hover,.visor .cerrar:focus-visible{opacity:1}
+/* Compartir una pieza: un filete, y abajo a la derecha el dibujo de siempre
+   —una flecha que sale de una caja abierta—, chiquito y en gris. Es el pie de
+   la pieza, no un botón del marco: por eso va adentro de la tarjeta y no
+   flotando en una esquina, donde se le encimaba a la pastilla del tema. */
+.visor .adentro .pie-compartir{display:flex;align-items:center;justify-content:flex-end;
+  gap:.8rem;margin:1.8rem 0 0;border-top:1px solid var(--linea);padding-top:.7rem}
+.visor .adentro .pie-compartir[hidden]{display:none}
+.visor .compartir{background:none;border:none;padding:.3rem;cursor:pointer;
+  color:var(--gris);line-height:0;opacity:.8;transition:opacity .15s,color .15s}
+.visor .compartir svg{width:1.05rem;height:1.05rem;display:block}
+.visor .compartir:hover,.visor .compartir:focus-visible{opacity:1;color:var(--acento)}
+/* El aviso de que el link quedó copiado. */
+.visor .aviso{margin:0;font-family:var(--ficha);font-size:.62rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gris)}
+.visor .aviso[hidden]{display:none}
+/* La lista de adónde mandarlo. Sube desde el botón, pegada a la derecha, y es
+   una columna de renglones chiquitos: ni una caja con sombra ni un cuadro de
+   diálogo, para que no pese más que la pieza que está abajo. */
+.visor .pie-compartir{position:relative}
+.visor .menu-compartir{position:absolute;right:0;bottom:calc(100% + .5rem);z-index:4;
+  display:flex;flex-direction:column;min-width:11rem;
+  background:var(--papel);border:1px solid var(--linea);
+  box-shadow:0 6px 24px rgba(19,18,15,.13);padding:.3rem 0}
+.visor .menu-compartir[hidden]{display:none}
+.visor .menu-compartir a,.visor .menu-compartir button{
+  display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  font-family:var(--letra);font-weight:var(--peso);font-size:.84rem;line-height:1.2;
+  color:var(--tinta);text-decoration:none;padding:.45rem .9rem;
+  transition:background .12s,color .12s}
+.visor .menu-compartir a[hidden],.visor .menu-compartir button[hidden]{display:none}
+.visor .menu-compartir a:hover,.visor .menu-compartir a:focus-visible,
+.visor .menu-compartir button:hover,.visor .menu-compartir button:focus-visible{
+  background:var(--marcado);color:var(--tinta);outline:none}
+.visor .compartir[aria-expanded="true"]{opacity:1;color:var(--acento)}
+
+/* ---- leer en orden o al azar ---- */
+/* Los botones se fueron adentro de una pastilla, la misma del claro y el
+   oscuro: ese estilo vive más abajo y vale para las dos. Acá sólo queda el
+   verbo que los precede y la cuenta que los sigue. */
+.modos{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;margin:-.8rem 0 1.6rem}
+.modos .rotulo{font-family:var(--ficha);font-weight:400;font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gris)}
+.modos .pista{font-size:.76rem;color:var(--gris);font-variant-numeric:tabular-nums}
+.azulejo[hidden]{display:none}
+/* El desorden se ve: las tarjetas que estaban a la vista salen revoleadas como
+   naipes y las nuevas caen de a una, cada una con su propio ladeo. El giro y
+   el envión vienen del script en --giro, --x e --y: sin eso las doce caerían
+   iguales y parecería una lista, no una mano repartida. */
+@keyframes revolear{
+  18%{opacity:1;transform:scale(1.06)}
+  to{opacity:0;
+     transform:translate(var(--x,0),var(--y,0)) rotate(var(--giro,10deg)) scale(var(--escala,.5))}
+}
+@keyframes repartir{
+  from{opacity:0;
+       transform:translate(var(--x,0),var(--y,0)) rotate(var(--giro,-6deg)) scale(var(--escala,.6))}
+  45%{opacity:1}
+  to{opacity:1;transform:none}
+}
+/* Primero un respingo —se agrandan un punto— y recién después salen
+   disparadas: sin ese tirón hacia adentro, lo que estalla no se siente. */
+.azulejo.volando{animation:revolear .52s cubic-bezier(.5,-.4,.75,.2) forwards;
+  pointer-events:none;z-index:3}
+.azulejo.recien{animation:repartir .56s cubic-bezier(.17,.9,.28,1.04) backwards}
+/* Quien pidió menos movimiento no ve ninguna de las dos: el script ni siquiera
+   les pone la clase, y esto es el cinturón por si alguna quedara puesta. */
+@media (prefers-reduced-motion:reduce){
+  .azulejo.volando,.azulejo.recien{animation:none}
+}
+
+/* ---- cabecera: flecha a la izquierda, nombre a la derecha ---- */
+.arriba{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+.volver{color:var(--gris);text-decoration:none;font-size:1.2rem;line-height:1}
+.volver:hover{color:var(--acento)}
+.arriba .nombre{margin:0 0 0 auto}
+
+/* el texto del taller, todo del mismo tamaño */
+.curso .lede{font-size:1em;line-height:1.62}
+
+/* ---- el papel ---- */
+/* Casi blanco, apenas gris, sin rosado: el que eligió Nico. */
+/* La hoja no es pareja: dos manchas muy suaves y un grano apenas visible. */
+body{
+  background-color:var(--papel);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 12% 8%, rgba(92,92,86,.05), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 88% 78%, rgba(92,92,86,.04), transparent 55%);
+  background-attachment:fixed;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)' opacity='.035'/%3E%3C/svg%3E")}
+
+.limite{position:relative;z-index:2}
+
+/* ---- buscar ---- */
+/* El buscador vive en la misma línea que las secciones, pero del otro lado:
+   así esa franja queda limpia —la frase a la izquierda, la lupa a la derecha—
+   en vez de tener tres cosas apiladas. En pantalla angosta la fila se parte y
+   el buscador baja solo, ocupando el ancho. */
+.fila{display:flex;align-items:baseline;justify-content:space-between;
+  gap:.6rem 1.6rem;flex-wrap:wrap;margin:.1rem 0 .5rem}
+.fila .menu{margin:0}
+.fila .buscar{margin:0;flex:0 0 auto}
+@media (max-width:560px){
+  .fila .buscar{flex:1 1 100%}
+  .fila .buscar .campo{width:100%}
+}
+/* ═══════════════ La lupa y la flecha del buscador ═══════════════
+   El campo a secas, sin nada alrededor, no se lee como buscador: es un
+   renglón. La lupa lo nombra y la flecha dice que hay a dónde ir. */
+.buscar{display:flex;align-items:center;gap:.5rem}
+.campo{display:flex;align-items:center}
+.lupa{width:14px;height:14px;flex:none;color:var(--gris);position:absolute;left:0;top:50%;
+  transform:translateY(-50%);pointer-events:none}
+/* Va con .buscar adelante a propósito: más abajo hay un .buscar input que
+   pone el relleno en cero y, con la misma especificidad, ganaba el de abajo.
+   El texto arrancaba encima de la lupa. */
+.buscar .campo input{padding-left:1.35rem}
+.buscar .rueda{left:1.35rem}
+.ir{flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:1.55rem;height:1.55rem;border:1px solid var(--linea);border-radius:999px;
+  background:none;color:var(--gris);cursor:pointer;padding:0;
+  transition:border-color .15s,color .15s}
+.ir svg{width:12px;height:12px}
+.ir:hover,.ir:focus-visible{border-color:var(--tinta);color:var(--tinta)}
+/* el buscador grande de la página de búsqueda */
+.buscador .lupa{width:17px;height:17px;left:.7rem}
+.buscador .campo input{padding-left:2.1rem}
+.buscador .rueda{left:2.1rem}
+.buscador .ir{width:2.3rem;height:2.3rem}
+.buscador .ir svg{width:15px;height:15px}
+
+.buscar .campo{width:12rem;max-width:100%}
+.buscar input{background:none;border:none;border-bottom:1px solid var(--linea);
+  font-family:var(--letra);font-weight:300;font-size:.84rem;color:var(--tinta);
+  padding:.25rem 0;width:100%}
+.buscar input::placeholder{color:var(--gris)}
+.buscar input:focus{outline:none;border-bottom-color:var(--acento)}
+.buscador{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:1.6rem 0 1rem}
+.buscador .campo{width:20rem;max-width:100%}
+.buscador input{width:100%;background:none;border:1px solid var(--linea);
+  font-family:var(--letra);font-weight:300;font-size:1rem;color:var(--tinta);padding:.6rem .7rem}
+.buscador input:focus{outline:none;border-color:var(--acento)}
+.buscador button.texto{background:var(--tinta);color:var(--papel);border:none;cursor:pointer;
+  font-family:var(--letra);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;padding:.6rem 1rem}
+.buscador button:hover{background:var(--acento)}
+#cuenta{font-size:.78rem;color:var(--gris);margin:0 0 1.2rem}
+.azulejo mark{background:none;color:var(--acento);font-weight:600}
+
+/* ---- hoja de contactos para revisar fotos ---- */
+.limite:has(.contactos){max-width:76rem}
+.contactos{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:1.2rem}
+.contactos figure{margin:0}
+.contactos img{width:100%;height:10rem;object-fit:contain;background:var(--papel-hondo);display:block}
+.contactos figcaption{font-size:.74rem;color:var(--gris);padding-top:.35rem;line-height:1.3}
+.contactos b{color:var(--acento);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* Hoja de revisión: lo que Nico descartó queda a la vista pero apagado, así
+   los números no se mueven cuando pide algo por número. */
+.contactos .fuera img { opacity: .25; filter: grayscale(1); }
+.contactos .fuera figcaption { color: #b00; }
+
+/* ——— La página del workshop ———
+   Se organiza en las tres acciones que le dan nombre a las secciones del
+   sitio: juego, apunto y cuento. La palabra va grande a la izquierda y las
+   clases a la derecha, para que la estructura se vea antes de leerse. */
+/* Los nombres de las partes dejan de ir en versalitas espaciadas: son
+   títulos, no clasificaciones. Van en la serif, como el resto de los
+   títulos del sitio, en un cuerpo menor y en gris. */
+/* La entrada va en dos columnas, de periódico y no de grilla: el texto baja
+   por una columna y sigue en la de al lado. Con la grilla, la primera frase,
+   que es corta, dejaba media columna vacía atrás. El filete vertical del
+   medio es el mismo que separa todo lo demás del sitio, de pie.
+   El bloque no se estira a las 72rem de la página aunque la página las tenga:
+   a ese ancho cada columna daría renglones de noventa caracteres, que es más
+   de lo que el ojo sigue sin perder la línea. Acotado, cada columna cae en
+   setenta y pico, que es la medida en la que se lee. */
+.curso .apertura{columns:2;column-gap:2.6rem;column-rule:1px solid var(--linea);
+  max-width:62rem;text-align:justify;hyphens:auto}
+.curso .apertura p{margin:0 0 .85rem}
+.curso .apertura p:last-child{margin-bottom:0}
+/* La prosa suelta, en cambio, se queda en una medida de lectura: a 72rem un
+   párrafo corrido daría renglones de más de cien caracteres. */
+.curso > p{max-width:40rem}
+/* Los tres datos del taller entran en una sola fila, que es como se leen. */
+.curso .datos{grid-template-columns:repeat(3,1fr)}
+.curso h2.seccion{font-family:var(--titulo);font-size:1.02rem;font-weight:400;letter-spacing:-.01em;
+  color:var(--gris);margin:2.6rem 0 .9rem;border-top:1px solid var(--tinta);padding-top:.9rem}
+/* Las tres acciones van una abajo de la otra. Estuvieron un tiempo en tres
+   columnas de pie, que dibujaban un plano lindo pero obligaban a leer tres
+   textos largos en paralelo, cada uno en una columna angosta: mucha letra de
+   golpe. Apiladas se leen scrolleando, que es como se lee. Cada una abre con
+   su filete, y el texto se queda en la medida de lectura del resto de la
+   página en vez de estirarse a las 72rem. */
+.acciones{display:grid;grid-template-columns:1fr;gap:0}
+.mov{border-top:1px solid var(--linea);padding:1.5rem 0 2rem}
+.mov .detalle{max-width:40rem}
+/* Justificado, para que cada columna sea un rectángulo de verdad. La partición
+   de palabras es lo que lo hace posible: sin ella, en una columna angosta el
+   justificado abre huecos blancos entre palabra y palabra. */
+.mov .que,.clase p{text-align:justify;hyphens:auto}
+.mov .cabeza{margin-bottom:.9rem}
+/* Lo que titula cada acción es el método —qué se hace—, y debajo, chiquito,
+   el nombre de la sección que le corresponde. Antes era al revés: la palabra
+   grande decía juego, apunto o cuento, que es lo que ya dicen las pestañas
+   de arriba, y el método quedaba de pie de foto. */
+.mov .titulo{font-family:var(--titulo);font-size:1.5rem;line-height:1.12;letter-spacing:-.02em;margin:0}
+.mov .bajada{font-family:var(--titulo);font-size:.88rem;color:var(--gris-claro);margin:.34rem 0 0;line-height:1.3}
+.mov .que{margin:0 0 .9rem}
+.clase{border-top:1px solid var(--linea);padding:.7rem 0 .65rem;
+  display:grid;grid-template-columns:1.6rem 1fr;gap:.7rem}
+.clase .n{font-size:.72rem;color:var(--gris);padding-top:.3rem;font-variant-numeric:tabular-nums}
+.clase h3{font-family:var(--titulo);margin:0;font-size:1.06rem;font-weight:400;letter-spacing:-.01em}
+.clase p{margin:.25rem 0 0;font-size:.9rem}
+.clase .leen{margin:.4rem 0 0;font-size:.82rem;color:var(--gris-claro)}
+/* Se acomoda solo a dos, tres o cuatro datos sin dejar filas rengas. */
+.datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:0 2.4rem;margin:1rem 0 0}
+.datos div{border-top:1px solid var(--linea);padding:.6rem 0}
+.datos dt{font-family:var(--ficha);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.datos dd{margin:.25rem 0 0;font-size:.92rem}
+/* El cierre es una nota al pie, no un cartel. Tuvo fondo de tinta y pesaba
+   demasiado: era la mancha más oscura de la página y se comía todo lo que
+   tenía alrededor. Ahora llama la atención sin gritar: el filete fuerte que
+   usan los títulos de sección, la frase un punto más grande y con más cuerpo
+   que la prosa, y la dirección de correo en el único color que tiene el
+   sitio. */
+.cierre{border-top:1px solid var(--tinta);padding:.9rem 0 0;
+  margin-top:2.6rem;max-width:34rem}
+.cierre p{margin:0;font-size:1.06rem;font-weight:500;line-height:1.45}
+.cierre a{color:var(--acento);text-decoration-thickness:1px;text-underline-offset:.2em}
+.cierre .et{font-family:var(--ficha);display:block;font-size:.58rem;letter-spacing:.16em;
+  color:var(--gris);margin-bottom:.45rem}
+/* La bajada que aclara qué hay en Juego, Apunto y Cuento. */
+.bajo-titulo{font-family:var(--ficha);margin:-.4rem 0 1.4rem;color:var(--gris);font-size:.88rem;
+  letter-spacing:.14em;text-transform:uppercase}
+
+/* Tres columnas necesitan ancho. Abajo de 900px el taller vuelve a leerse en
+   una sola, que es como se lee un texto en un teléfono. */
+@media (max-width:900px){
+  .curso .apertura{columns:1;column-rule:none}
+}
+@media (max-width:900px){
+  .curso .datos{grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
+}
+@media (max-width:760px){
+  .mov .titulo{font-size:1.4rem}
+  .datos,.curso .datos{grid-template-columns:1fr}
+}
+/* En un teléfono el renglón no da para justificar: con cuarenta y pico de
+   caracteres, estirar hasta el margen abre huecos entre las palabras aunque
+   se parta con guiones. Ahí el texto va alineado a la izquierda. */
+@media (max-width:620px){
+  .curso .apertura,.mov .que,.clase p{text-align:left;hyphens:manual}
+}
+
+/* La Geist Mono solo existe en peso normal. Donde se la usaba sin declararlo,
+   heredaba el 300 del cuerpo —un peso que no existe en ese archivo— y cada
+   navegador lo resolvía por su cuenta. Mejor pedir lo que hay. */
+.fecha,.mov .metodo,.clase .leen,.datos dt,.cierre .et,.bajo-titulo{font-weight:400}
+
+/* ═══════════════ Claro y oscuro ═══════════════
+   El papel no se vuelve negro puro: se vuelve una tinta cálida, para que
+   siga pareciendo papel y no una pantalla apagada. El acento rojo sube de
+   luminosidad, porque el mismo rojo sobre fondo oscuro se hunde y deja de
+   leerse. Sin elección guardada manda el sistema; el botón la guarda. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-tema="claro"]){
+    --papel:#14130F; --tinta:#EDEBE4; --gris:#908C83; --linea:#33312B;
+    --papel-hondo:#1D1C17; --acento:#E8705C; --gris-claro:#716D65; --marcado:#2B2924;
+    color-scheme:dark;
+  }
+}
+:root[data-tema="oscuro"]{
+  --papel:#14130F; --tinta:#EDEBE4; --gris:#908C83; --linea:#33312B;
+  --papel-hondo:#1D1C17; --acento:#E8705C; --gris-claro:#716D65; --marcado:#2B2924;
+  color-scheme:dark;
+}
+
+/* La pastilla de dos segmentos: se ven las dos opciones y la que está puesta
+   queda marcada. Es más clara que un botón que dice a dónde vas, porque
+   muestra dónde estás. Lleva esquina redonda, que es lo único redondo del
+   sitio: es un control, no contenido. */
+.pastilla{display:inline-flex;align-items:center;border:1px solid var(--linea);
+  border-radius:999px;padding:2px;background:var(--papel)}
+.pastilla button{border:none;background:none;border-radius:999px;cursor:pointer;
+  font-family:var(--ficha);font-weight:400;font-size:.55rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gris);line-height:1;padding:.3rem .5rem;
+  display:inline-flex;align-items:center;transition:background .15s,color .15s}
+.pastilla button:hover{color:var(--tinta)}
+/* El segmento puesto se marca con un gris apenas más hondo que el papel, no
+   con tinta llena: relleno de negro era la mancha más oscura de la página, y
+   un interruptor no debería pesar más que una foto. */
+.pastilla button[aria-pressed="true"]{background:var(--marcado);color:var(--tinta)}
+
+/* ═══════════════ Las palabras que pasan por el buscador ═══════════════
+   La palabra no va en el placeholder, que no se puede animar: va en un span
+   encima, y el placeholder de verdad queda transparente mientras tanto. Al
+   entrar al campo se apaga la rueda y vuelve a decir «Buscar», que es lo
+   único que hace falta cuando ya estás escribiendo. */
+.campo{position:relative;display:block}
+.rueda{position:absolute;top:0;right:0;bottom:0;display:flex;align-items:center;overflow:hidden;
+  pointer-events:none;color:var(--gris);transition:opacity .2s ease;font-size:.84rem}
+.buscador .rueda{font-size:1rem;padding-left:.7rem}
+.rueda span{position:absolute;white-space:nowrap;left:0}
+.campo:focus-within .rueda,.campo.escrito .rueda{opacity:0}
+/* Red de seguridad: la rueda se apaga siempre que el campo tenga algo
+   escrito, lo haya escrito quien lo haya escrito. La regla de arriba depende
+   de que alguien avise; esta no depende de nadie. */
+.campo:not(:has(input:placeholder-shown)) .rueda{opacity:0}
+input.con-rueda::placeholder{color:transparent}
+input.con-rueda:focus::placeholder{color:var(--gris)}
+/* La que sale se va antes de que entre la siguiente. Si se cruzan a mitad de
+   camino se leen las dos encimadas y parece un error. */
+.rueda .sale{animation:rueda-sale .26s ease-in forwards}
+.rueda .entra{animation:rueda-entra .3s .2s ease-out backwards}
+@keyframes rueda-sale{to{opacity:0;transform:translateY(-.6em)}}
+@keyframes rueda-entra{from{opacity:0;transform:translateY(.6em)}to{opacity:1;transform:none}}
+
+/* ═══════════════ La tarjeta sale del mosaico y viene al frente ═══════════════
+   No aparece en el centro: arranca chiquita, en el lugar exacto del azulejo
+   que tocaste, y viaja hasta el frente dando casi media vuelta sobre sí
+   misma. El script del visor mide las dos posiciones y deja acá el viaje en
+   --dx, --dy y --k; el CSS hace el resto.
+
+   Dos cosas la sostienen. La perspectiva del fondo: sin ella, girar sobre el
+   eje vertical no se ve como un volumen que rota sino como algo que se
+   achata de costado. Y el dorso oculto: cuando el giro es sobre el eje
+   vertical y la tarjeta viene de espaldas no se ve, así que nunca se lee el
+   texto al revés; aparece recién cuando da la cara. En las volteretas, que
+   giran sobre el plano, no hay dorso que ocultar y se ve dar la vuelta
+   entera. Tarda un segundo largo a propósito, para poder seguirla. */
+.visor{perspective:1700px;perspective-origin:50% 42%}
+@keyframes tarjeta-vuela{
+  from{opacity:0;
+       transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--k,.28))
+                 var(--giro,rotateY(-166deg) rotateX(10deg))}
+  30%{opacity:1}
+  to{opacity:1;transform:none}
+}
+.visor .tarjeta{transform-origin:50% 50%;backface-visibility:hidden;
+  animation:tarjeta-vuela 1.15s cubic-bezier(.32,.02,.16,1) both}
+
+@media (prefers-reduced-motion:reduce){
+  .visor .tarjeta{animation:none;transform:none}
+  .rueda .sale,.rueda .entra{animation:none}
+}
+
+/* El video de un posteo. Va en 16:9 y se estira al ancho que haya, que es lo
+   que hace falta para que sirva igual en el visor y en el teléfono. */
+.video{position:relative;aspect-ratio:16/9;margin:0 0 1rem;background:var(--papel-hondo)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* ——— El ensayo destacado ———
+   Es la primera tarjeta del mosaico y ocupa cuatro lugares, para que se vea
+   que no es un apunte más sino el texto que explica la sección. Se abre como
+   cualquier otra. En pantallas de una sola columna vuelve al tamaño normal,
+   porque si no se comería la pantalla entera. */
+.azulejo.destacado{grid-column:span 2;grid-row:span 2}
+.azulejo.destacado .miniatura{height:15rem}
+.azulejo.destacado h2{font-size:1.6rem;line-height:1.14;margin:0 0 .4rem}
+.azulejo.destacado .resumen{font-size:.98rem;line-height:1.5}
+/* La etiqueta de arriba de la tarjeta grande. La miniatura se sube .9rem
+   para sangrar hasta el borde, y eso se le comía la etiqueta: cuando hay
+   etiqueta, la foto arranca donde le toca y se separa bien. */
+.azulejo .et{font-family:var(--titulo);font-size:.84rem;color:var(--gris-claro);margin:0 0 .75rem}
+.azulejo .et + .miniatura{margin-top:0}
+
+/* «Seguir leyendo» en la tarjeta grande. Va pegado abajo, por encima del
+   degradé que desvanece el texto, con el mismo rojo y la misma flecha que el
+   «Continuar leyendo» del resto del sitio. */
+.azulejo .seguir{position:absolute;left:.9rem;bottom:.75rem;z-index:1;margin:0;
+  display:inline-flex;align-items:center;gap:.45rem;font-size:.88rem;color:var(--acento)}
+.azulejo .seguir .flecha{display:inline-block}
+.azulejo:hover .seguir,.azulejo:focus-visible .seguir{text-decoration:underline;text-underline-offset:.22em}
+.azulejo.destacado{padding-bottom:3rem}
+
+/* La foto que cierra un texto en vez de abrirlo: más chica que el ancho de
+   lectura, separada por un filete, con la leyenda debajo. */
+.visor .adentro figure.al-final{margin:1.8rem auto 0;max-width:26rem;
+  border-top:1px solid var(--linea);padding-top:1.4rem}
+.visor .adentro figure figcaption{font-size:.78rem;color:var(--gris);
+  line-height:1.4;padding-top:.5rem}
+@media (max-width:620px){
+  /* En una sola columna no puede ser más ancho, pero sigue siendo el ensayo:
+     se queda con el doble de alto. En una altura normal, la foto más el
+     título más la bajada más el «Seguir leyendo» no entran. */
+  .azulejo.destacado{grid-column:span 1;grid-row:span 2}
+  .azulejo.destacado .miniatura{height:9rem}
+  .azulejo.destacado h2{font-size:1.06rem}
+  .azulejo.destacado .resumen{font-size:.88rem}
+}
+
+/* De dónde sale un texto que no es de Nico, y dónde leerlo entero. Va al pie,
+   más chico y en gris: es una ficha, no parte del texto. */
+.visor .adentro .fuente{font-size:.82rem;color:var(--gris);line-height:1.5;
+  border-top:1px solid var(--linea);margin-top:1.4rem;padding-top:.9rem}
+.visor .adentro .fuente a{color:var(--acento);text-decoration:none;
+  border-bottom:1px solid transparent}
+.visor .adentro .fuente a:hover,.visor .adentro .fuente a:focus-visible{border-bottom-color:var(--acento)}
+
+/* El crédito de una foto que no es de Nico. Va pegado abajo de la imagen,
+   chico y en gris: dice de quién es, no es parte del cuento. */
+.visor .adentro figure figcaption{font-size:.78rem;color:var(--gris);
+  line-height:1.4;padding-top:.5rem}
+
+/* ——— La marca: un dibujo chiquito adentro de un círculo, con su frase ———
+   El dibujo es la pluma sobre fondo blanco; el círculo lo recorta y el borde
+   lo cierra. object-fit cover se queda con el cuadrado del medio, que es
+   justo donde está la pluma, así que no hubo que recortar ningún archivo. */
+.visor .adentro figure.marca{margin:1.8rem 0 0;border-top:1px solid var(--linea);
+  padding-top:1.4rem;display:flex;align-items:center;gap:1rem}
+.visor .adentro figure.marca .disco{flex:0 0 auto;width:4.6rem;height:4.6rem;
+  border-radius:50%;overflow:hidden;background:#fff;border:1px solid var(--tinta);
+  display:block;position:relative}
+.visor .adentro figure.marca .disco img{position:absolute;inset:0;width:100%;height:100%;
+  max-height:none;object-fit:cover;transform:scale(1.25);margin:0}
+.visor .adentro figure.marca figcaption{padding-top:0;font-size:.84rem;line-height:1.45;
+  color:var(--gris)}
+@media (max-width:620px){
+  .visor .adentro figure.marca .disco{width:3.8rem;height:3.8rem}
+}
